@@ -14,9 +14,6 @@ const submitButton = document.querySelector('button.submit');
 form.addEventListener('submit', (event) => {
 
     event.preventDefault();
-})
-
-submitButton.addEventListener('click', () => {
 
     const title = form.elements['title'].value;
     const pages = form.elements['pages'].value;
@@ -25,7 +22,13 @@ submitButton.addEventListener('click', () => {
 
     addBookToLibrary(author, title, pages, userHasRead)
 
+    form.reset();
 })
+
+/*submitButton.addEventListener('submit', () => {
+
+
+})*/
 
 addBookButton.addEventListener('click', () => {
 
@@ -33,7 +36,7 @@ addBookButton.addEventListener('click', () => {
     form.classList.toggle('active');
 })
 
-let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true)];
+let myLibrary = [];
 
 function Book(author, title, pages, read){
 
@@ -55,21 +58,38 @@ function addBookToLibrary(author, title, pages, userHasRead){
 
 function display(){
     
-    myLibrary.forEach(book => {
+    myLibrary.forEach((book, index) => {
        const tableRow = document.createElement('tr');
+
+       tableRow.setAttribute('data-key', index);
+
+        if(table.innerHTML.match() != -1 || table.innerHTML.indexOf(book.title) != -1){
+
+            alert("You have duplicate books!");
+            return;
+        }
+
+        for(const key in book){
+
+                const tableCell = document.createElement('td');
+                tableCell.textContent = book[key];
+                tableRow.appendChild(tableCell);
+
+            /*if(index != 3){
+
+                const tableCell = document.createElement('td');
+                tableCell.textContent = book[key];
+                tableRow.appendChild(tableCell);
+            }
+            if(index == 3){
+
+                tbody.appendChild(tableCell)
+            }*/
+       }
 
        tbody.appendChild(tableRow);
 
 
-        for(const key in book){
-
-        if(table.innerHTML.indexOf(book[key]) == -1){
-
-            const tableCell = document.createElement('td');
-            tableCell.textContent = book[key];
-            tbody.appendChild(tableCell);
-        }
-       }
 
 
     })
