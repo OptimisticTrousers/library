@@ -4,6 +4,8 @@ const form = document.querySelector('form');
 
 const tbody = document.querySelector('tbody');
 
+const table = document.querySelector('table');
+
 //const author = form.elements['author'];
 
 const submitButton = document.querySelector('button.submit');
@@ -53,14 +55,23 @@ function addBookToLibrary(author, title, pages, userHasRead){
 
 function display(){
     
-    myLibrary.map(book => {
+    myLibrary.forEach(book => {
        const tableRow = document.createElement('tr');
-       const tableCell = document.createElement('td');
-
-       tableCell.textContent = book.author;
 
        tbody.appendChild(tableRow);
-       tbody.appendChild(tableCell);
+
+
+        for(const key in book){
+
+        if(table.innerHTML.indexOf(book[key]) == -1){
+
+            const tableCell = document.createElement('td');
+            tableCell.textContent = book[key];
+            tbody.appendChild(tableCell);
+        }
+       }
+
+
     })
 }
 
