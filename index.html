@@ -33,12 +33,21 @@
       </div>
       <div>
         <label for="pages">Number of Pages:</label>
-        <input type="text" id="pages" placeholder="432">
+        <input type="number" id="pages" placeholder="432">
       </div>
+      <p>Ticket Type</p>
       <div>
-        <label for="has_read">Has Read:</label>
-        <input type="text" id="has_read" placeholder="432">
+        <input type="radio" id="true" name="has_read" value="true">
+        <label for="true">True</label>
       </div>
+
+      <div>
+        <input type="radio" id="false" name="has_read" value="false">
+        <label for="false">False</label>
+    </div>
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
 
     </form>
 	<script src="script.js"></script>
