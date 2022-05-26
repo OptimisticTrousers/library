@@ -2,15 +2,11 @@ const addBookButton = document.querySelector('button.add-new-book');
 
 const form = document.querySelector('form');
 
-//const author = form.elements['author'];
-const title = form.elements['title'];
-const pages = form.elements['pages'];
-const userHasRead = form.elements['has_read'];
+const tbody = document.querySelector('tbody');
 
-const author = document.querySelector('#author');
+//const author = form.elements['author'];
 
 const submitButton = document.querySelector('button.submit');
-
 
 
 form.addEventListener('submit', (event) => {
@@ -20,7 +16,13 @@ form.addEventListener('submit', (event) => {
 
 submitButton.addEventListener('click', () => {
 
-    console.log(author.value)
+    const title = form.elements['title'].value;
+    const pages = form.elements['pages'].value;
+    const userHasRead = form.elements['has_read'].value;
+    const author = form.elements['author'].value;
+
+    addBookToLibrary(author, title, pages, userHasRead)
+
 })
 
 addBookButton.addEventListener('click', () => {
@@ -39,15 +41,27 @@ function Book(author, title, pages, read){
     this.read = read;
 }
 
-function addBookToLibrary(author, title, pages, read){
+function addBookToLibrary(author, title, pages, userHasRead){
 
-    new Book(author, title, pages, read).push(myLibrary);
+    let newBook = new Book(author, title, pages, userHasRead);
+
+    myLibrary.push(newBook);
+
+    display();
 
 }
 
 function display(){
     
     myLibrary.map(book => {
-        
+       const tableRow = document.createElement('tr');
+       const tableCell = document.createElement('td');
+
+       tableCell.textContent = book.author;
+
+       tbody.appendChild(tableRow);
+       tbody.appendChild(tableCell);
     })
 }
+
+display();
