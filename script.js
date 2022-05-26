@@ -80,7 +80,7 @@ function display(){
 
        const tableRow = document.createElement('tr');
 
-       tableRow.setAttribute('data-key', i);
+        tableRow.setAttribute('data-key', i);
 
         for(const key in myLibrary[i]){
 
@@ -93,11 +93,11 @@ function display(){
        const deleteButton = document.createElement('button');
 
        deleteButton.addEventListener('click', () => {
-
         //bookIndex is behind the numbers of rows on the page by one because of the headers
-        table.deleteRow(bookIndex);
+
+        tableRow.remove();
         bookIndex--;
-        myLibrary.pop();
+        myLibrary.splice(i, 1);
        })
         tableRow.appendChild(deleteButton);
         tbody.appendChild(tableRow);
