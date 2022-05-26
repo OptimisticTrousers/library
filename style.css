@@ -38,7 +38,12 @@ tr:nth-child(odd) td {
     background-color: rgb(245, 245, 245);
 }
 
-captain {
+caption {
 
     padding: 10px;
+}
+
+form.active{
+
+    display: none;
 }
