@@ -90,9 +90,17 @@ function display(){
        }
 
 
+       const deleteButton = document.createElement('button');
+
+       deleteButton.addEventListener('click', () => {
+
+        //bookIndex is behind the numbers of rows on the page by one because of the headers
+        table.deleteRow(bookIndex);
+        bookIndex--;
+        myLibrary.pop();
+       })
+        tableRow.appendChild(deleteButton);
         tbody.appendChild(tableRow);
-
-
 
     }
 }
