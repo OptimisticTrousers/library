@@ -83,9 +83,30 @@ function display(){
         tableRow.setAttribute('data-key', i);
 
         for(const key in myLibrary[i]){
+            
 
             const tableCell = document.createElement('td');
-            tableCell.textContent = myLibrary[i][key];
+
+            if(key == "read"){
+                const readButton = document.createElement('button');
+                readButton.textContent = myLibrary[i][key];
+                tableCell.appendChild(readButton);
+
+                readButton.addEventListener('click', function() {
+
+
+                    if(this.textContent == "true"){
+                        this.textContent= "false";
+                    }
+                    else if(this.textContent == "false"){
+                        this.textContent = "true";
+                    }
+                })
+            }
+            else{
+
+                tableCell.textContent = myLibrary[i][key];
+            }
             tableRow.appendChild(tableCell);
        }
 

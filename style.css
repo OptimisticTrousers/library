@@ -47,3 +47,7 @@ form.active {
 
     display: none;
 }
+
+button{
+    padding: 40px;
+}
