@@ -46,6 +46,8 @@ function Book(author, title, pages, read){
     this.read = read;
 }
 
+let bookIndex = 0;
+
 function addBookToLibrary(author, title, pages, userHasRead){
 
     let newBook = new Book(author, title, pages, userHasRead);
@@ -53,46 +55,46 @@ function addBookToLibrary(author, title, pages, userHasRead){
     myLibrary.push(newBook);
 
     display();
+    bookIndex++;
 
 }
+function checkIfDuplicate(book){
 
-function display(){
-    
-    myLibrary.forEach((book, index) => {
-       const tableRow = document.createElement('tr');
+       for(let i = 0; i < myLibrary.length; i++){
 
-       tableRow.setAttribute('data-key', index);
+        authorCell = myLibrary[i].author;
+        titleCell = myLibrary[i].title;
 
-        if(table.innerHTML.match() != -1 || table.innerHTML.indexOf(book.title) != -1){
+            if(authorCell == book.author && titleCell == book.title){
 
-            alert("You have duplicate books!");
-            return;
+                return true;
+            }
         }
 
-        for(const key in book){
+        return false;
 
-                const tableCell = document.createElement('td');
-                tableCell.textContent = book[key];
-                tableRow.appendChild(tableCell);
+}
+function display(){
 
-            /*if(index != 3){
+    for(let i = bookIndex; i < myLibrary.length; i++){
 
-                const tableCell = document.createElement('td');
-                tableCell.textContent = book[key];
-                tableRow.appendChild(tableCell);
-            }
-            if(index == 3){
+       const tableRow = document.createElement('tr');
 
-                tbody.appendChild(tableCell)
-            }*/
+       tableRow.setAttribute('data-key', i);
+
+        for(const key in myLibrary[i]){
+
+            const tableCell = document.createElement('td');
+            tableCell.textContent = myLibrary[i][key];
+            tableRow.appendChild(tableCell);
        }
 
-       tbody.appendChild(tableRow);
+
+        tbody.appendChild(tableRow);
 
 
 
-
-    })
+    }
 }
 
 display();
