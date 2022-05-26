@@ -46,7 +46,7 @@ function Book(author, title, pages, read){
     this.read = read;
 }
 
-let bookIndex = -1;
+let bookIndex = 0;
 
 function addBookToLibrary(author, title, pages, userHasRead){
 
@@ -54,7 +54,7 @@ function addBookToLibrary(author, title, pages, userHasRead){
 
     myLibrary.push(newBook);
 
-    bookIndex++;
+    bookIndex = myLibrary.length - 1
     display();
 
 }
