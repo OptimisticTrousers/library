@@ -36,7 +36,7 @@ addBookButton.addEventListener('click', () => {
     form.classList.toggle('active');
 })
 
-let myLibrary = [];
+let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true)];
 
 function Book(author, title, pages, read){
 
@@ -126,4 +126,6 @@ function display(){
 
     }
 }
+
+display();
 

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <main>
     <table>
       <thead>
         <tr>
@@ -22,36 +23,38 @@
 
       </tbody>
     </table>
-    <button class="add-new-book">Click Me To Add New Book!</button>
-    <form >
-      <div>
-        <label for="author">Author:</label>
-        <input type="text" id="author" placeholder="George R. R. Martin" required>
+    <div class="form-container">
+      <button class="add-new-book">Click Me To Add New Book!</button>
+      <form >
+        <div>
+          <label for="author">Author:</label>
+          <input type="text" id="author" placeholder="George R. R. Martin" required>
+        </div>
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" id="title" placeholder="A Song Of Ice and Fire" required>
+        </div>
+        <div>
+          <label for="pages">Number of Pages:</label>
+          <input type="number" id="pages" placeholder="432" required>
+        </div>
+        <p>Have you read this book?</p>
+        <div>
+          <input type="radio" id="yes" name="has_read" value="true" required>
+          <label for="yes">Yes</label>
+        </div>
+        <div>
+          <input type="radio" id="no" name="has_read" value="false" required>
+          <label for="no">No</label>
       </div>
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" placeholder="A Song Of Ice and Fire" required>
-      </div>
-      <div>
-        <label for="pages">Number of Pages:</label>
-        <input type="number" id="pages" placeholder="432" required>
-      </div>
-      <p>Have you read this book?</p>
-      <div>
-        <input type="radio" id="yes" name="has_read" value="true" required>
-        <label for="yes">Yes</label>
-      </div>
-
-      <div>
-        <input type="radio" id="no" name="has_read" value="false" required>
-        <label for="no">No</label>
+        <button class="submit" type="submit">Submit</button>
+        <button class="reset" type="reset">Reset</button>
+      </form>
     </div>
-
-      <button class="submit" type="submit">Submit</button>
-      <button class="reset" type="reset">Reset</button>
-
-    </form>
+    </main>
+  <footer>
+    <a href="https://www.freepik.com/vectors/book-shop">Book shop vector created by pch.vector - www.freepik.com</a>
+  </footer>
 	<script src="script.js"></script>
-  <a href="https://www.freepik.com/vectors/book-shop">Book shop vector created by pch.vector - www.freepik.com</a>
   </body>
 </html>
