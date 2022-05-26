@@ -46,21 +46,21 @@ function Book(author, title, pages, read){
     this.read = read;
 }
 
-let bookIndex = 0;
+let bookIndex = -1;
 
 function addBookToLibrary(author, title, pages, userHasRead){
 
-    let newBook = new Book(author, title, pages, userHasRead);
+    const newBook = new Book(author, title, pages, userHasRead);
 
     myLibrary.push(newBook);
 
-    display();
     bookIndex++;
+    display();
 
 }
 function checkIfDuplicate(book){
 
-       for(let i = 0; i < myLibrary.length; i++){
+       for(let i = 0; i <= myLibrary.length; i++){
 
         authorCell = myLibrary[i].author;
         titleCell = myLibrary[i].title;
@@ -95,9 +95,10 @@ function display(){
        deleteButton.addEventListener('click', () => {
         //bookIndex is behind the numbers of rows on the page by one because of the headers
 
-        tableRow.remove();
-        bookIndex--;
-        myLibrary.splice(i, 1);
+
+            bookIndex--;
+            tableRow.remove();
+            myLibrary.splice(i, 1);
        })
         tableRow.appendChild(deleteButton);
         tbody.appendChild(tableRow);
@@ -105,4 +106,3 @@ function display(){
     }
 }
 
-display();
