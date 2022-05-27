@@ -32,15 +32,17 @@ addBookButton.addEventListener('click', () => {
 })
 
 
-function Book(author, title, pages, read){
+class Book {
+    constructor(author, title, pages, read) {
 
-    this.author = author;
+        this.author = author;
 
-    this.title = title;
+        this.title = title;
 
-    this.pages = pages;
+        this.pages = pages;
 
-    this.read = read;
+        this.read = read;
+    }
 }
 
 function addBookToLibrary(author, title, pages, userHasRead){
