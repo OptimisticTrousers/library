@@ -20,24 +20,26 @@
         </tr>
       </thead>
       <tbody>
-
       </tbody>
     </table>
+    <div class="speech-bubble">
+      Hello there
+    </div>
     <div class="form-container">
       <button class="add-new-book">Click Me To Add New Book!</button>
       <form >
         <div>
           <label for="author">Author:</label>
-          <input type="text" id="author" placeholder="George R. R. Martin" required>
         </div>
+          <input type="text" id="author" placeholder="George R. R. Martin" required>
         <div>
           <label for="title">Title:</label>
-          <input type="text" id="title" placeholder="A Song Of Ice and Fire" required>
         </div>
+          <input type="text" id="title" placeholder="A Song Of Ice and Fire" required>
         <div>
           <label for="pages">Number of Pages:</label>
-          <input type="number" id="pages" placeholder="432" required>
         </div>
+          <input type="number" id="pages" placeholder="432" required>
         <p>Have you read this book?</p>
         <div>
           <input type="radio" id="yes" name="has_read" value="true" required>
@@ -47,8 +49,10 @@
           <input type="radio" id="no" name="has_read" value="false" required>
           <label for="no">No</label>
       </div>
+      <div class="buttons">
         <button class="submit" type="submit">Submit</button>
         <button class="reset" type="reset">Reset</button>
+      </div>
       </form>
     </div>
     </main>

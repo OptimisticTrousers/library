@@ -1,4 +1,7 @@
 /*Grabbed styles from https://github.com/mdn/learning-area/blob/main/html/tables/advanced/minimal-table.css*/
+@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Oswald:wght@700&family=Prompt&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
 body{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -65,6 +68,115 @@ form.active {
     display: none;
 }
 
-button{
-    padding: 40px;
+form {
+
+    border-radius: 6px;
+    border: 1px solid black;
+    box-shadow: 3px 8px rgba(0, 0, 0, 0.10);
+    background-color: #699eee;
+    padding: 2rem 1rem;
 }
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+}
+form button{
+    border-color: rgb(17, 24, 39);
+    padding: 40px;
+    border-width: 2px;
+    color: rgb(31, 41, 55);
+    border-radius: 9999px;
+    text-transform: capitalize;
+    margin-top: 1rem;
+    margin: 0 auto;
+    padding: 1.75rem 3.5rem;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    transition-duration: 200ms;
+}
+
+form input{
+    border-radius: 6px;
+    padding: 10px;
+    width: 400px;
+    font-size: 16px;
+    background-color: #eaf3fa;
+}
+
+form button:hover{
+    color: white;
+    background-color: rgb(31, 41, 55);
+    cursor: pointer;
+}
+
+.add-new-book{
+    margin-bottom: 2rem;
+    border: 2px solid black;
+    padding: 3rem 5.5rem;
+    border-radius: 500px;
+    font-size: 1.5rem;
+    background-color: #313E50;
+    color: white;
+
+}
+
+.add-new-book:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+
+}
+
+form button:focus{
+    outline: none;
+}
+
+form > div {
+    margin-bottom: 1rem;
+}
+form > input{
+
+    margin-bottom: 2rem;
+}
+
+form > label{
+    font-size: 32px;
+    font-family: 'Oswald', cursive;
+}
+
+
+.speech-bubble {
+  position: absolute;
+  transition: all 2s ease-in;
+  align-self: center;
+  align-content: flex-start;
+  margin-right: 500px;
+  margin-bottom: 500px;
+  padding: 1em;
+  width: 10em; height: 4em;
+  border-radius: .25em;
+  transform: rotate(-4deg) rotateY(15deg);
+  background: #629bdd;
+  font: 2em/4 Century Gothic, Verdana, sans-serif;
+  text-align: center;
+}
+.speech-bubble:before, .speech-bubble:after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+}
+.speech-bubble:after {
+  top: 0; right: 0; bottom: 0; left: 0;
+  border-radius: inherit;
+  transform: rotate(2deg) translate(.35em, -.15em) scale(1.02);
+  background: #f4fbfe;
+}
+.speech-bubble:before {
+  border: solid 0 transparent;
+  border-right: solid 3.5em #f4fbfe;
+  border-bottom: solid .25em #629bdd;
+  bottom: .25em; left: 1.25em;
+  width: 0; height: 1em;
+  transform: rotate(45deg) skewX(75deg);
+}
+/*Got chat box from here: https://codepen.io/thebabydino/pen/DmVqBM*/
