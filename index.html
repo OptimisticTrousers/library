@@ -27,7 +27,8 @@
     </div>
     <div class="form-container">
       <button class="add-new-book">Click Me To Add New Book!</button>
-      <form >
+      <form>
+        <fieldset>
         <div>
           <label for="author">Author:</label>
         </div>
@@ -40,13 +41,16 @@
           <label for="pages">Number of Pages:</label>
         </div>
           <input type="number" id="pages" placeholder="432" required>
+        </fieldset>
         <p>Have you read this book?</p>
         <div>
           <input type="radio" id="yes" name="has_read" value="true" required>
           <label for="yes">Yes</label>
         <div>
+        <div>
           <input type="radio" id="no" name="has_read" value="false" required>
           <label for="no">No</label>
+        </div>
       </div>
       <div class="buttons">
         <button class="submit" type="submit">Submit</button>
