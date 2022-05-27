@@ -217,26 +217,37 @@ fieldset > label{
         gap: 20px;
         flex-wrap: wrap;
         margin-bottom: auto;
+        justify-content: center;
     }
 
-    fieldset input{
-
-        width: 200px;
-    }
-
-    form{
-        width: min-content;
-        margin-bottom: 1rem;
-    }
-
-    form button{
-        padding: 8px 16px;
-    }
 }
 
 @media(max-width:680px){
 
     table{
         margin: 1rem;
+    }
+    main{
+        display: block;
+        align-items: center;
+    }
+
+    form{
+        width: min-content;
+        margin-bottom: 1rem;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        align-content: center;
+    }
+
+    fieldset > input{
+        width: min-content;
+    }
+    td, th{
+        padding: 9px 17px;
+    }
+
+    form button{
+        padding: 8px 16px;
     }
 }
