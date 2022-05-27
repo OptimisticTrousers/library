@@ -67,6 +67,9 @@ form.active {
     display: none;
 }
 
+form label, p{
+    font-size: 1.5rem;
+}
 
 form {
 
@@ -163,7 +166,7 @@ fieldset > label{
   border-radius: .25em;
   transform: rotate(-4deg) rotateY(15deg);
   background: #629bdd;
-  font: 2em/4 Century Gothic, Verdana, sans-serif;
+  font: 2em Century Gothic, Verdana, sans-serif;
   text-align: center;
 }
 .speech-bubble:before, .speech-bubble:after {
