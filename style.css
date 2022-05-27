@@ -205,14 +205,14 @@ fieldset > label{
   text-align: center;
 }
 
-.speech-bubble:before, .speech-bubble:after {
+.speech-bubble::before, .speech-bubble::after {
 
   position: absolute;
   z-index: -1;
   content: '';
 }
 
-.speech-bubble:after {
+.speech-bubble::after {
 
   top: 0; right: 0; bottom: 0; left: 0;
   border-radius: inherit;
@@ -220,7 +220,7 @@ fieldset > label{
   background: #f4fbfe;
 }
 
-.speech-bubble:before {
+.speech-bubble::before {
 
   border: solid 0 transparent;
   border-right: solid 3.5em #f4fbfe;
