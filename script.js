@@ -36,7 +36,7 @@ addBookButton.addEventListener('click', () => {
     form.classList.toggle('active');
 })
 
-let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Song of Ice and Fire", 1032, false)];
+let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Game of Thrones", 694, false), new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true)];
 
 function Book(author, title, pages, read){
 
