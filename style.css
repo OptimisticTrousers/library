@@ -70,11 +70,16 @@ form.active {
 
 form {
 
-    border-radius: 6px;
+    border-radius: 15px;
     border: 1px solid black;
     box-shadow: 3px 8px rgba(0, 0, 0, 0.10);
     background-color: #699eee;
     padding: 2rem 1rem;
+}
+
+.radio-buttons{
+    display: flex;
+    justify-content: start;
 }
 
 .buttons{
@@ -90,7 +95,8 @@ form button{
     text-transform: capitalize;
     margin-top: 1rem;
     margin: 0 auto;
-    padding: 1.75rem 3.5rem;
+    padding: 2rem 5rem;
+    font-size: 1rem;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     transition-duration: 200ms;
 }

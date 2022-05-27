@@ -112,6 +112,8 @@ function display(){
 
 
        const deleteButton = document.createElement('button');
+       
+       const tableCell = document.createElement('td');
 
        deleteButton.addEventListener('click', () => {
         //bookIndex is behind the numbers of rows on the page by one because of the headers
@@ -121,7 +123,11 @@ function display(){
             tableRow.remove();
             myLibrary.splice(i, 1);
        })
-        tableRow.appendChild(deleteButton);
+
+        deleteButton.textContent = '✖'
+        deleteButton.style = "color: red;"
+        tableCell.appendChild(deleteButton);
+        tableRow.appendChild(tableCell);
         tbody.appendChild(tableRow);
 
     }
