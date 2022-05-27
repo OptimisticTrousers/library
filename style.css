@@ -3,15 +3,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
-
 html, body{
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     min-height: 100vh;
     background-image: url("/assets/library.jpg");
     background-size: cover;
 }
 
-table {
+table{
 
     border-collapse: collapse;
     border: 2px solid rgb(200, 200, 200);
@@ -19,7 +19,7 @@ table {
     font-size: 0.8rem;
 }
 
-main {
+main{
 
     min-height: inherit;
     display: flex;
@@ -29,43 +29,44 @@ main {
     flex: 1;
 }
 
-td, th {
+td, th{
 
     border: 1px solid rgb(190, 190, 190);
     padding: 10px 20px;
 }
 
-th {
+th{
 
     background-color: rgb(235, 235, 235);
 }
 
-td {
+td{
 
     text-align: center;
 }
 
-tr:nth-child(even) td {
+tr:nth-child(even) td{
 
     background-color: rgb(250, 250, 250);
 }
 
-tr:nth-child(odd) td {
+tr:nth-child(odd) td{
 
     background-color: rgb(245, 245, 245);
 }
 
-caption {
+caption{
 
     padding: 10px;
 }
 
-form.active {
+form.active{
 
     display: none;
 }
 
 form label, p{
+
     font-size: 1.5rem;
 }
 
@@ -80,11 +81,13 @@ form {
 }
 
 .buttons{
+
     display: flex;
     justify-content: space-around;
     margin-top: 2rem;
 }
 form button{
+
     border-color: rgb(17, 24, 39);
     padding: 40px;
     border-width: 2px;
@@ -100,6 +103,7 @@ form button{
 }
 
 fieldset input{
+
     border-radius: 6px;
     padding: 10px;
     width: 400px;
@@ -108,6 +112,7 @@ fieldset input{
 }
 
 footer{
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,6 +122,7 @@ footer{
 }
 
 a{
+
     text-decoration: underline;
     color: white;
     text-decoration-style: dotted;
@@ -127,16 +133,19 @@ a{
 
 
 fieldset {
+
     border: 0;
 }
 
 form button:hover{
+
     color: white;
     background-color: rgb(31, 41, 55);
     cursor: pointer;
 }
 
 .add-new-book{
+
     margin-bottom: 2rem;
     border: 2px solid black;
     padding: 3rem 5.5rem;
@@ -148,6 +157,7 @@ form button:hover{
 }
 
 .add-new-book:hover{
+
     cursor: pointer;
     background-color: white;
     color: black;
@@ -155,23 +165,30 @@ form button:hover{
 }
 
 form button:focus{
+
     outline: none;
 }
 
 fieldset > div {
+
     margin-bottom: 1rem;
 }
+
 fieldset > input{
 
     margin-bottom: 2rem;
 }
 
 fieldset > label{
+
     font-size: 32px;
     font-family: 'Oswald', cursive;
 }
 
+/*Got chat box from here: https://codepen.io/thebabydino/pen/DmVqBM*/
+
 .speech-bubble {
+
   position: absolute;
   transition: all 2s ease-in;
   align-self: center;
@@ -187,18 +204,24 @@ fieldset > label{
   font: 2em Century Gothic, Verdana, sans-serif;
   text-align: center;
 }
+
 .speech-bubble:before, .speech-bubble:after {
+
   position: absolute;
   z-index: -1;
   content: '';
 }
+
 .speech-bubble:after {
+
   top: 0; right: 0; bottom: 0; left: 0;
   border-radius: inherit;
   transform: rotate(2deg) translate(.35em, -.15em) scale(1.02);
   background: #f4fbfe;
 }
+
 .speech-bubble:before {
+
   border: solid 0 transparent;
   border-right: solid 3.5em #f4fbfe;
   border-bottom: solid .25em #629bdd;
@@ -206,33 +229,38 @@ fieldset > label{
   width: 0; height: 1em;
   transform: rotate(45deg) skewX(75deg);
 }
-/*Got chat box from here: https://codepen.io/thebabydino/pen/DmVqBM*/
 
 @media(max-width:1280px) {
+
     .speech-bubble {
+
         display: none;
     }
 
     main{
+
         gap: 20px;
         flex-wrap: wrap;
         margin-bottom: auto;
         justify-content: center;
     }
-
 }
 
 @media(max-width:680px){
 
     table{
+
         margin: 1rem;
     }
+
     main{
+
         display: block;
         align-items: center;
     }
 
     form{
+
         width: min-content;
         margin-bottom: 1rem;
         margin: 0 auto;
@@ -241,13 +269,17 @@ fieldset > label{
     }
 
     fieldset > input{
+
         width: min-content;
     }
+
     td, th{
+
         padding: 9px 17px;
     }
 
     form button{
+
         padding: 8px 16px;
     }
 }
