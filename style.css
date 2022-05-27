@@ -20,7 +20,6 @@ table {
 
 main {
 
-    height: inherit;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-around;
@@ -114,7 +113,7 @@ footer{
 
 a{
     text-decoration: underline;
-    color: black;
+    color: white;
     text-decoration-style: dotted;
     text-decoration-thickness: 4px;
     text-decoration-color: #A7E8BD;
@@ -203,3 +202,35 @@ fieldset > label{
   transform: rotate(45deg) skewX(75deg);
 }
 /*Got chat box from here: https://codepen.io/thebabydino/pen/DmVqBM*/
+
+@media(max-width:1280px) {
+    .speech-bubble {
+        display: none;
+    }
+
+    main{
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    fieldset input{
+
+        width: 200px;
+    }
+
+    form{
+        width: min-content;
+        margin-bottom: 1rem;
+    }
+
+    form button{
+        padding: 8px 16px;
+    }
+}
+
+@media(max-width:680px){
+
+    table{
+        margin: 1rem;
+    }
+}
