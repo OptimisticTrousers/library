@@ -1,16 +1,12 @@
 const addBookButton = document.querySelector('button.add-new-book');
-
 const form = document.querySelector('form');
-
 const tbody = document.querySelector('tbody');
-
 const table = document.querySelector('table');
-
 const submitButton = document.querySelector('button.submit');
 
-let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Game of Thrones", 694, false), new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true)];
+//let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Game of Thrones", 694, false), new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true)];
 
-let bookIndex = 0;
+//let bookIndex = 0;
 
 form.addEventListener('submit', (event) => {
 
@@ -45,97 +41,108 @@ class Book {
     }
 }
 
-function addBookToLibrary(author, title, pages, userHasRead){
+class Library {
 
-    const newBook = new Book(author, title, pages, userHasRead);
+    constructor() {
+        this.myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Game of Thrones", 694, false), new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true)];
+        this.bookIndex = 0;
+    }
 
-    myLibrary.push(newBook);
+    checkIfDuplicate(book){
 
-    bookIndex = myLibrary.length - 1
+        for(let i = 0; i <= this.myLibrary.length; i++){
 
-    display();
+            authorCell = this.myLibrary[i].author;
 
-}
+            titleCell = this.myLibrary[i].title;
 
-function checkIfDuplicate(book){
-
-       for(let i = 0; i <= myLibrary.length; i++){
-
-        authorCell = myLibrary[i].author;
-
-        titleCell = myLibrary[i].title;
-
-            if(authorCell == book.author && titleCell == book.title){
-                return true;
+                if(authorCell == book.author && titleCell == book.title){
+                    return true;
+                }
             }
+            return false;
+
+    }
+
+    display(){
+
+        for(let i = this.bookIndex; i < this.myLibrary.length; i++){
+
+        const tableRow = document.createElement('tr');
+
+            tableRow.setAttribute('data-key', i);
+
+            for(const key in this.myLibrary[i]){
+                
+
+                const tableCell = document.createElement('td');
+                if(key == "read"){
+
+                    const readButton = document.createElement('button');
+
+                    readButton.textContent = this.myLibrary[i][key];
+
+                    tableCell.appendChild(readButton);
+
+                    readButton.addEventListener('click', function(){
+
+
+                        if(this.textContent == "true"){
+
+                            this.textContent= "false";
+                        }
+                        else if(this.textContent == "false"){
+
+                            this.textContent = "true";
+                        }
+                    })
+                }
+                else{
+
+                    tableCell.textContent = this.myLibrary[i][key];
+                }
+                tableRow.appendChild(tableCell);
         }
-        return false;
 
-}
+        const deleteButton = document.createElement('button');
+        
+        const tableCell = document.createElement('td');
 
-function display(){
+        deleteButton.addEventListener('click', () => {
 
-    for(let i = bookIndex; i < myLibrary.length; i++){
+                this.bookIndex--;
 
-       const tableRow = document.createElement('tr');
+                tableRow.remove();
 
-        tableRow.setAttribute('data-key', i);
+                this.myLibrary.splice(i, 1);
+        })
+            deleteButton.textContent = '✖'
 
-        for(const key in myLibrary[i]){
-            
+            deleteButton.style = "color: red;"
 
-            const tableCell = document.createElement('td');
-            if(key == "read"){
+            tableCell.appendChild(deleteButton);
 
-                const readButton = document.createElement('button');
-
-                readButton.textContent = myLibrary[i][key];
-
-                tableCell.appendChild(readButton);
-
-                readButton.addEventListener('click', function(){
-
-
-                    if(this.textContent == "true"){
-
-                        this.textContent= "false";
-                    }
-                    else if(this.textContent == "false"){
-
-                        this.textContent = "true";
-                    }
-                })
-            }
-            else{
-
-                tableCell.textContent = myLibrary[i][key];
-            }
             tableRow.appendChild(tableCell);
-       }
 
-       const deleteButton = document.createElement('button');
-       
-       const tableCell = document.createElement('td');
+            tbody.appendChild(tableRow);
+        }
+    }
 
-       deleteButton.addEventListener('click', () => {
+    addBookToLibrary(author, title, pages, userHasRead){
 
-            bookIndex--;
+        const newBook = new Book(author, title, pages, userHasRead);
 
-            tableRow.remove();
+        this.myLibrary.push(newBook);
 
-            myLibrary.splice(i, 1);
-       })
-        deleteButton.textContent = '✖'
+        this.bookIndex = this.myLibrary.length - 1
 
-        deleteButton.style = "color: red;"
-
-        tableCell.appendChild(deleteButton);
-
-        tableRow.appendChild(tableCell);
-
-        tbody.appendChild(tableRow);
+        this.display();
     }
 }
 
-display();
+
+
+const library = new Library();
+
+library.display();
 
