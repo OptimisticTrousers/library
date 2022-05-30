@@ -4,30 +4,6 @@ const tbody = document.querySelector('tbody');
 const table = document.querySelector('table');
 const submitButton = document.querySelector('button.submit');
 
-//let myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Game of Thrones", 694, false), new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true)];
-
-//let bookIndex = 0;
-
-form.addEventListener('submit', (event) => {
-
-    event.preventDefault();
-
-    const title = form.elements['title'].value;
-    const pages = form.elements['pages'].value;
-    const userHasRead = form.elements['has_read'].value;
-    const author = form.elements['author'].value;
-
-    addBookToLibrary(author, title, pages, userHasRead)
-
-    form.reset();
-})
-
-addBookButton.addEventListener('click', () => {
-
-    form.classList.toggle('active');
-})
-
-
 class Book {
     constructor(author, title, pages, read) {
 
@@ -46,22 +22,6 @@ class Library {
     constructor() {
         this.myLibrary = [new Book("Jane Austen", "Pride and Prejudice", 432, true), new Book("George R. R. Martin", "A Game of Thrones", 694, false), new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true)];
         this.bookIndex = 0;
-    }
-
-    checkIfDuplicate(book){
-
-        for(let i = 0; i <= this.myLibrary.length; i++){
-
-            authorCell = this.myLibrary[i].author;
-
-            titleCell = this.myLibrary[i].title;
-
-                if(authorCell == book.author && titleCell == book.title){
-                    return true;
-                }
-            }
-            return false;
-
     }
 
     display(){
@@ -136,13 +96,30 @@ class Library {
 
         this.bookIndex = this.myLibrary.length - 1
 
-        this.display();
+        library.display();
     }
 }
 
-
-
 const library = new Library();
 
-library.display();
+form.addEventListener('submit', (event) => {
 
+    event.preventDefault();
+
+    const title = form.elements['title'].value;
+    const pages = form.elements['pages'].value;
+    const userHasRead = form.elements['has_read'].value;
+    const author = form.elements['author'].value;
+
+    library.addBookToLibrary(author, title, pages, userHasRead)
+
+
+    form.reset();
+})
+
+addBookButton.addEventListener('click', () => {
+
+    form.classList.toggle('active');
+})
+
+library.display();
