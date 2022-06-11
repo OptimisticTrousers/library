@@ -123,8 +123,15 @@ addBookButton.addEventListener('click', () => {
     form.classList.toggle('active');
 })
 
-author.addEventListener('input', function(){
+const authorError = document.querySelector('#mail + span.error')
 
+author.addEventListener('input', function(event){
+
+    if(author.validity.valid){
+
+        authorError.textContent = '';
+        
+    }
 })
 
 library.display();
