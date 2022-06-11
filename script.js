@@ -130,6 +130,8 @@ author.addEventListener('input', function(event){
     if(author.validity.valid){
 
         authorError.textContent = '';
+
+        authorError.className = 'error';
         
     }
 })
