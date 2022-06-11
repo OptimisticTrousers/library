@@ -112,17 +112,20 @@ form.addEventListener('submit', (event) => {
         showError();
 
         event.preventDefault();
+    } else{
+
+        const title = form.elements['title'].value;
+        const pages = form.elements['pages'].value;
+        const userHasRead = form.elements['has_read'].value;
+        const author = form.elements['author'].value;
+
+        library.addBookToLibrary(author, title, pages, userHasRead)
+
+
+        form.reset();
+
     }
 
-    const title = form.elements['title'].value;
-    const pages = form.elements['pages'].value;
-    const userHasRead = form.elements['has_read'].value;
-    const author = form.elements['author'].value;
-
-    library.addBookToLibrary(author, title, pages, userHasRead)
-
-
-    form.reset();
 })
 
 addBookButton.addEventListener('click', () => {
@@ -130,7 +133,10 @@ addBookButton.addEventListener('click', () => {
     form.classList.toggle('active');
 })
 
-const authorError = document.querySelector('#mail + span.error')
+const authorError = document.querySelector('#author + span.error')
+
+console.log(authorError)
+        console.log(author)
 
 author.addEventListener('input', function(event){
 
