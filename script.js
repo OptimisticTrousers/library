@@ -3,6 +3,7 @@ const form = document.querySelector('form');
 const tbody = document.querySelector('tbody');
 const table = document.querySelector('table');
 const submitButton = document.querySelector('button.submit');
+const author = document.getElementById('author');
 
 class Book {
     constructor(author, title, pages, read) {
@@ -120,6 +121,10 @@ form.addEventListener('submit', (event) => {
 addBookButton.addEventListener('click', () => {
 
     form.classList.toggle('active');
+})
+
+author.addEventListener('input', function(){
+
 })
 
 library.display();
