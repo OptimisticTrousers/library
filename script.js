@@ -107,6 +107,13 @@ form.addEventListener('submit', (event) => {
 
     event.preventDefault();
 
+    if(!author.validity.valid){
+
+        showError();
+
+        event.preventDefault();
+    }
+
     const title = form.elements['title'].value;
     const pages = form.elements['pages'].value;
     const userHasRead = form.elements['has_read'].value;
@@ -133,7 +140,20 @@ author.addEventListener('input', function(event){
 
         authorError.className = 'error';
         
+    } else{
+
+        showError();
     }
 })
+
+function showError(){
+
+    if(author.validity.valueMissing){
+
+        authorError.textContent = "You need to enter a valid full name"
+
+    } 
+    authorError.className = "error active";
+}
 
 library.display();
