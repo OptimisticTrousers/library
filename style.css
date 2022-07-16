@@ -13,6 +13,9 @@ body{
     background-image: url("./assets/library.jpg");
     background-size: cover;
 }
+    .add-new-book {
+        margin-top: 1rem;
+    }
 
 table{
 
@@ -253,17 +256,10 @@ fieldset > label{
 
 @media(max-width:680px){
 
-    table{
-
-        margin: 1rem;
-    }
-
     main{
 
-        display: block;
         align-items: center;
     }
-
     form{
 
         width: min-content;
@@ -278,13 +274,23 @@ fieldset > label{
         width: min-content;
     }
 
-    td, th{
-
-        padding: 9px 17px;
-    }
-
     form button{
 
         padding: 8px 16px;
+    }
+    footer {
+        display: none;
+    }
+}
+
+@media(max-width: 500px) {
+
+    tr, th, td {
+        padding: 3% 8px;
+        font-size: 0.75rem;
+    }
+    table > button {
+        padding: 0;
+        margin: 0;
     }
 }
