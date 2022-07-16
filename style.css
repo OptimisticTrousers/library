@@ -286,7 +286,7 @@ fieldset > label{
 @media(max-width: 500px) {
 
     tr, th, td {
-        padding: 3% 8px;
+        padding: 3% 0px;
         font-size: 0.75rem;
     }
     table > button {
