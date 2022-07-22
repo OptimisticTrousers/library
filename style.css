@@ -238,6 +238,10 @@ fieldset > label{
   transform: rotate(45deg) skewX(75deg);
 }
 
+footer a:nth-child(2) {
+        padding-bottom: 1rem;
+}
+
 @media(max-width:1280px) {
 
     .speech-bubble {
@@ -281,6 +285,7 @@ fieldset > label{
     footer {
         display: none;
     }
+    
 }
 
 @media(max-width: 500px) {
@@ -293,4 +298,5 @@ fieldset > label{
         padding: 0;
         margin: 0;
     }
+    
 }
