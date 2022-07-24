@@ -35,7 +35,20 @@ function signOutUser() {
 
 function initFirebaseAuth() {
   // Listen to auth state changes.
-  //onAuthStateChanged(getAuth(), authStateObserver);
+  onAuthStateChanged(getAuth(), authStateObserver);
+}
+
+function authStateObserver(user) {
+  if (user) {
+    var userName = getUserName();
+    userAccountButton.style.display = "block";
+    logInButton.textContent = "Sign Out";
+    logInButton.removeEventListener("click", signIn);
+    logInButton.addEventListener("click", signOutUser);
+  } else {
+    userAccountButton.style.display = "none";
+    logInButton.textContent = "Log In";
+  }
 }
 
 function getUserName() {
@@ -159,10 +172,6 @@ addBookButton.addEventListener("click", () => {
   form.classList.toggle("active");
 });
 
-logInButton.addEventListener("click", () => {
-  signIn();
-  userAccountButton.style.display = "block";
-  logInButton.textContent = "Sign Out";
-});
+logInButton.addEventListener("click", signIn);
 
 library.display();
