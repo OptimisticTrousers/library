@@ -238,7 +238,7 @@ nav {
 
 .log-in,
 .user-account {
-  width: 83px;
+  width: 90px;
   padding: 0.5rem 1rem;
   border: none;
   height: min-content;
@@ -246,10 +246,15 @@ nav {
   border-radius: 8px;
 }
 
+.user-account {
+  display: none;
+}
+
 .account-buttons {
   width: 20%;
   display: flex;
   justify-content: space-between;
+  column-gap: 1rem;
 }
 
 .log-in:hover,

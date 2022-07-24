@@ -49,6 +49,8 @@ function isUserSignedIn() {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const userAccountButton = document.querySelector(".user-account");
+const logInButton = document.querySelector(".log-in");
 const addBookButton = document.querySelector("button.add-new-book");
 const form = document.querySelector("form");
 const tbody = document.querySelector("tbody");
@@ -155,6 +157,12 @@ form.addEventListener("submit", (event) => {
 
 addBookButton.addEventListener("click", () => {
   form.classList.toggle("active");
+});
+
+logInButton.addEventListener("click", () => {
+  signIn();
+  userAccountButton.style.display = "block";
+  logInButton.textContent = "Sign Out";
 });
 
 library.display();
