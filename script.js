@@ -160,12 +160,13 @@ class Library {
   }
 
   addBookToLibrary(author, title, pages, userHasRead) {
+    const book = { title, pages, userHasRead, author };
     if (isUserSignedIn()) {
-      const newBook = new Book(author, title, pages, userHasRead);
-
       this.myLibrary.push(newBook);
 
       this.bookIndex = this.myLibrary.length - 1;
+
+      saveBook(book);
 
       library.display();
     } else {
