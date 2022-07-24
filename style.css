@@ -1,202 +1,177 @@
 /*Grabbed styles from https://github.com/mdn/learning-area/blob/main/html/tables/advanced/minimal-table.css*/
-@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Oswald:wght@700&family=Prompt&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Oswald:wght@700&family=Prompt&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
 
-html{
-    height: 100%;
+html {
+  height: 100%;
 }
-body{
-
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    min-height: 100vh;
-    background-image: url("./assets/library.jpg");
-    background-size: cover;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  background-image: url("./assets/library.jpg");
+  background-size: cover;
 }
-    .add-new-book {
-        margin-top: 1rem;
-    }
-
-table{
-
-    border-collapse: collapse;
-    border: 2px solid rgb(200, 200, 200);
-    letter-spacing: 1px;
-    font-size: 0.8rem;
+.add-new-book {
+  margin-top: 1rem;
 }
 
-main{
-
-    min-height: inherit;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    align-items: center;
-    flex: 1;
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(200, 200, 200);
+  letter-spacing: 1px;
+  font-size: 0.8rem;
 }
 
-td, th{
-
-    border: 1px solid rgb(190, 190, 190);
-    padding: 10px 20px;
+main {
+  min-height: inherit;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1;
 }
 
-th{
-
-    background-color: rgb(235, 235, 235);
+td,
+th {
+  border: 1px solid rgb(190, 190, 190);
+  padding: 10px 20px;
 }
 
-td{
-
-    text-align: center;
+th {
+  background-color: rgb(235, 235, 235);
 }
 
-tr:nth-child(even) td{
-
-    background-color: rgb(250, 250, 250);
+td {
+  text-align: center;
 }
 
-tr:nth-child(odd) td{
-
-    background-color: rgb(245, 245, 245);
+tr:nth-child(even) td {
+  background-color: rgb(250, 250, 250);
 }
 
-caption{
-
-    padding: 10px;
+tr:nth-child(odd) td {
+  background-color: rgb(245, 245, 245);
 }
 
-form.active{
-
-    display: none;
+caption {
+  padding: 10px;
 }
 
-form label, p{
+form.active {
+  display: none;
+}
 
-    font-size: 1.5rem;
+form label,
+p {
+  font-size: 1.5rem;
 }
 
 form {
-
-    border-radius: 15px;
-    border: 1px solid black;
-    box-shadow: 3px 8px rgba(0, 0, 0, 0.10);
-    background-color: #699eee;
-    padding: 2rem 1rem;
-    margin-bottom: 1rem;
+  border-radius: 15px;
+  border: 1px solid black;
+  box-shadow: 3px 8px rgba(0, 0, 0, 0.1);
+  background-color: #699eee;
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
 }
 
-.buttons{
-
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
 }
-form button{
-
-    border-color: rgb(17, 24, 39);
-    padding: 40px;
-    border-width: 2px;
-    color: rgb(31, 41, 55);
-    border-radius: 9999px;
-    text-transform: capitalize;
-    margin-top: 1rem;
-    margin: 0 auto;
-    padding: 2rem 5rem;
-    font-size: 1rem;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-    transition-duration: 200ms;
+form button {
+  border-color: rgb(17, 24, 39);
+  padding: 40px;
+  border-width: 2px;
+  color: rgb(31, 41, 55);
+  border-radius: 9999px;
+  text-transform: capitalize;
+  margin-top: 1rem;
+  margin: 0 auto;
+  padding: 2rem 5rem;
+  font-size: 1rem;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 200ms;
 }
 
-fieldset input{
-
-    border-radius: 6px;
-    padding: 10px;
-    width: 400px;
-    font-size: 16px;
-    background-color: #eaf3fa;
+fieldset input {
+  border-radius: 6px;
+  padding: 10px;
+  width: 400px;
+  font-size: 16px;
+  background-color: #eaf3fa;
 }
 
-footer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 1rem;
-    margin-top: auto;
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-top: auto;
 }
 
 footer a {
-    color: white;
+  color: white;
 }
 
-a{
-
-    text-decoration: underline;
-    color: white;
-    text-decoration-style: dotted;
-    text-decoration-thickness: 4px;
-    text-decoration-color: #A7E8BD;
-    cursor: pointer;
+a {
+  text-decoration: underline;
+  color: white;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 4px;
+  text-decoration-color: #a7e8bd;
+  cursor: pointer;
 }
-
 
 fieldset {
-
-    border: 0;
+  border: 0;
 }
 
-form button:hover{
-
-    color: white;
-    background-color: rgb(31, 41, 55);
-    cursor: pointer;
+form button:hover {
+  color: white;
+  background-color: rgb(31, 41, 55);
+  cursor: pointer;
 }
 
-.add-new-book{
-
-    margin-bottom: 2rem;
-    border: 2px solid black;
-    padding: 3rem 5.5rem;
-    border-radius: 500px;
-    font-size: 1.5rem;
-    background-color: #313E50;
-    color: white;
-
+.add-new-book {
+  margin-bottom: 2rem;
+  border: 2px solid black;
+  padding: 3rem 5.5rem;
+  border-radius: 500px;
+  font-size: 1.5rem;
+  background-color: #313e50;
+  color: white;
 }
 
-.add-new-book:hover{
-
-    cursor: pointer;
-    background-color: white;
-    color: black;
-
+.add-new-book:hover {
+  cursor: pointer;
+  background-color: white;
+  color: black;
 }
 
-form button:focus{
-
-    outline: none;
+form button:focus {
+  outline: none;
 }
 
 fieldset > div {
-
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-fieldset > input{
-
-    margin-bottom: 2rem;
+fieldset > input {
+  margin-bottom: 2rem;
 }
 
-fieldset > label{
-
-    font-size: 32px;
-    font-family: 'Oswald', cursive;
+fieldset > label {
+  font-size: 32px;
+  font-family: "Oswald", cursive;
 }
 
 /*Got chat box from here: https://codepen.io/thebabydino/pen/DmVqBM*/
 
 .speech-bubble {
-
   position: absolute;
   transition: all 2s ease-in;
   align-self: center;
@@ -204,99 +179,105 @@ fieldset > label{
   margin-right: 500px;
   margin-bottom: 500px;
   padding: 1em;
-  width: 10em; 
+  width: 10em;
   height: 4em;
-  border-radius: .25em;
+  border-radius: 0.25em;
   transform: rotate(-4deg) rotateY(15deg);
   background: #629bdd;
   font: 2em Century Gothic, Verdana, sans-serif;
   text-align: center;
 }
 
-.speech-bubble::before, .speech-bubble::after {
-
+.speech-bubble::before,
+.speech-bubble::after {
   position: absolute;
   z-index: -1;
-  content: '';
+  content: "";
 }
 
 .speech-bubble::after {
-
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   border-radius: inherit;
-  transform: rotate(2deg) translate(.35em, -.15em) scale(1.02);
+  transform: rotate(2deg) translate(0.35em, -0.15em) scale(1.02);
   background: #f4fbfe;
 }
 
 .speech-bubble::before {
-
   border: solid 0 transparent;
   border-right: solid 3.5em #f4fbfe;
-  border-bottom: solid .25em #629bdd;
-  bottom: .25em; left: 1.25em;
-  width: 0; height: 1em;
+  border-bottom: solid 0.25em #629bdd;
+  bottom: 0.25em;
+  left: 1.25em;
+  width: 0;
+  height: 1em;
   transform: rotate(45deg) skewX(75deg);
 }
 
 footer a:nth-child(2) {
-        padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
-@media(max-width:1280px) {
-
-    .speech-bubble {
-
-        display: none;
-    }
-
-    main{
-
-        gap: 20px;
-        flex-wrap: wrap;
-        margin-bottom: auto;
-        justify-content: center;
-    }
+header {
+  display: flex;
+  background-color: rgb(255, 251, 251);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px 0px;
+  justify-content: center;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
 }
 
-@media(max-width:680px){
+@media (max-width: 1280px) {
+  .speech-bubble {
+    display: none;
+  }
 
-    main{
-
-        align-items: center;
-    }
-    form{
-
-        width: min-content;
-        margin-bottom: 1rem;
-        margin: 0 auto;
-        margin-bottom: 1rem;
-        align-content: center;
-    }
-
-    fieldset > input{
-
-        width: min-content;
-    }
-
-    form button{
-
-        padding: 8px 16px;
-    }
-    footer {
-        display: none;
-    }
-    
+  main {
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: auto;
+    justify-content: center;
+  }
 }
 
-@media(max-width: 500px) {
+@media (max-width: 680px) {
+  main {
+    align-items: center;
+  }
+  form {
+    width: min-content;
+    margin-bottom: 1rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    align-content: center;
+  }
 
-    tr, th, td {
-        padding: 3% 0px;
-        font-size: 0.75rem;
-    }
-    table > button {
-        padding: 0;
-        margin: 0;
-    }
-    
+  fieldset > input {
+    width: min-content;
+  }
+
+  form button {
+    padding: 8px 16px;
+  }
+  footer {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  tr,
+  th,
+  td {
+    padding: 3% 0px;
+    font-size: 0.75rem;
+  }
+  table > button {
+    padding: 0;
+    margin: 0;
+  }
 }

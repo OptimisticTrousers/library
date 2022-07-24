@@ -5,6 +5,9 @@ import {
   getDocs,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {
+  getAuth,
+  authStateObserver,
+  onAuthStateChanged,
   GoogleAuthProvider,
   signOut,
   signInWithPopup,
@@ -29,6 +32,11 @@ async function signIn() {
 function signOutUser() {
   // Sign out of Firebase.
   signOut(getAuth());
+}
+
+function initFirebaseAuth() {
+  // Listen to auth state changes.
+  onAuthStateChanged(getAuth(), authStateObserver);
 }
 
 const app = initializeApp(firebaseConfig);
@@ -128,7 +136,6 @@ const library = new Library();
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-
   const title = form.elements["title"].value;
   const pages = form.elements["pages"].value;
   const userHasRead = form.elements["has_read"].value;
