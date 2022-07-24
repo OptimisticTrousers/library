@@ -225,11 +225,31 @@ header {
   background-color: rgb(255, 251, 251);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px 0px;
   justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0rem;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 50%;
+}
+
+body > header > nav > button {
+  width: 83px;
+  padding: 0.5rem 1rem;
+  border: none;
+  height: min-content;
+  background-color: #eaf3fa;
+  border-radius: 8px;
+}
+
+body > header > nav > button:hover {
+  color: #eaf3fa;
+  background-color: black;
+  transition: all ease-in-out 0.2s;
+  cursor: pointer;
 }
 
 @media (max-width: 1280px) {
