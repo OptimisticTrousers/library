@@ -236,7 +236,8 @@ nav {
   width: 50%;
 }
 
-body > header > nav > button {
+.log-in,
+.user-account {
   width: 83px;
   padding: 0.5rem 1rem;
   border: none;
@@ -245,7 +246,14 @@ body > header > nav > button {
   border-radius: 8px;
 }
 
-body > header > nav > button:hover {
+.account-buttons {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.log-in:hover,
+.user-account:hover {
   color: #eaf3fa;
   background-color: black;
   transition: all ease-in-out 0.2s;

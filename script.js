@@ -6,7 +6,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {
   getAuth,
-  authStateObserver,
   onAuthStateChanged,
   GoogleAuthProvider,
   signOut,
@@ -36,7 +35,15 @@ function signOutUser() {
 
 function initFirebaseAuth() {
   // Listen to auth state changes.
-  onAuthStateChanged(getAuth(), authStateObserver);
+  //onAuthStateChanged(getAuth(), authStateObserver);
+}
+
+function getUserName() {
+  return getAuth().currentUser.displayName;
+}
+
+function isUserSignedIn() {
+  return !!getAuth().currentUser;
 }
 
 const app = initializeApp(firebaseConfig);
