@@ -1,3 +1,18 @@
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
+import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAY8oO7K5Uc92z24oIup2nP66QjeEx-k8c",
+    authDomain: "library-42f25.firebaseapp.com",
+    projectId: "library-42f25",
+    storageBucket: "library-42f25.appspot.com",
+    messagingSenderId: "525662056485",
+    appId: "1:525662056485:web:1b1304e368ed411ee54fcc"
+}
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const addBookButton = document.querySelector('button.add-new-book');
 const form = document.querySelector('form');
 const tbody = document.querySelector('tbody');
@@ -88,8 +103,8 @@ class Library {
         }
     }
 
-    addBookToLibrary(author, title, pages, userHasRead){
-
+    async addBookToLibrary(author, title, pages, userHasRead){
+	
         const newBook = new Book(author, title, pages, userHasRead);
 
         this.myLibrary.push(newBook);
