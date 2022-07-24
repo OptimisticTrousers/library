@@ -48,6 +48,7 @@ function authStateObserver(user) {
   } else {
     userAccountButton.style.display = "none";
     logInButton.textContent = "Log In";
+    logInButton.addEventListener("click", signIn);
   }
 }
 
@@ -144,13 +145,17 @@ class Library {
   }
 
   addBookToLibrary(author, title, pages, userHasRead) {
-    const newBook = new Book(author, title, pages, userHasRead);
+    if (isUserSignedIn()) {
+      const newBook = new Book(author, title, pages, userHasRead);
 
-    this.myLibrary.push(newBook);
+      this.myLibrary.push(newBook);
 
-    this.bookIndex = this.myLibrary.length - 1;
+      this.bookIndex = this.myLibrary.length - 1;
 
-    library.display();
+      library.display();
+    } else {
+      alert("Please sign in!");
+    }
   }
 }
 
@@ -158,18 +163,27 @@ const library = new Library();
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const title = form.elements["title"].value;
-  const pages = form.elements["pages"].value;
-  const userHasRead = form.elements["has_read"].value;
-  const author = form.elements["author"].value;
 
-  library.addBookToLibrary(author, title, pages, userHasRead);
+  if (isUserSignedIn()) {
+    const title = form.elements["title"].value;
+    const pages = form.elements["pages"].value;
+    const userHasRead = form.elements["has_read"].value;
+    const author = form.elements["author"].value;
 
-  form.reset();
+    library.addBookToLibrary(author, title, pages, userHasRead);
+
+    form.reset();
+  } else {
+    alert("Please sign in!");
+  }
 });
 
 addBookButton.addEventListener("click", () => {
-  form.classList.toggle("active");
+  if (isUserSignedIn()) {
+    form.classList.toggle("active");
+  } else {
+    alert("Please sign in!");
+  }
 });
 
 logInButton.addEventListener("click", signIn);
