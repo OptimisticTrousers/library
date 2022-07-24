@@ -4,7 +4,11 @@ import {
   collection,
   getDocs,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
-import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import {
+  GoogleAuthProvider,
+  signOut,
+  signInWithPopup,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAY8oO7K5Uc92z24oIup2nP66QjeEx-k8c",
@@ -20,6 +24,11 @@ async function signIn() {
   var provider = new GoogleAuthProvider();
 
   await signInWithPopup(getAuth(), provider);
+}
+
+function signOutUser() {
+  // Sign out of Firebase.
+  signOut(getAuth());
 }
 
 const app = initializeApp(firebaseConfig);
