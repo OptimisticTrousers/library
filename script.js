@@ -3,6 +3,8 @@ import {
   getFirestore,
   collection,
   getDocs,
+  addDoc,
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {
   getAuth,
@@ -36,6 +38,19 @@ function signOutUser() {
 function initFirebaseAuth() {
   // Listen to auth state changes.
   onAuthStateChanged(getAuth(), authStateObserver);
+}
+
+async function saveBook(book) {
+  try {
+    await addDoc(collection(getFirestore(), "messages")),
+      {
+        name: getUserName(),
+        book,
+        timestamp: serverTimestamp(),
+      };
+  } catch (error) {
+    alert.error("Error writing new message to Firebase Database", error);
+  }
 }
 
 function authStateObserver(user) {
