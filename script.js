@@ -20,6 +20,7 @@ import {
   signOut,
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import uniqid from "uniqid";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAY8oO7K5Uc92z24oIup2nP66QjeEx-k8c",
@@ -53,25 +54,27 @@ function deleteMessage(id) {
   }
 }
 
-async function updateBook(book, bookIndex) {
-  const bookDocRef = doc(db, "books", `book-${bookIndex}`);
+async function updateBook(book) {
+  const bookDocRef = doc(db, "books", book.id);
 
   await updateDoc(bookDocRef, {
     "book.read": !book.hasRead,
   });
 }
 
-async function deleteBook(bookIndex) {
-  await deleteDoc(doc(db, "books", `book-${bookIndex}`));
+async function deleteBook(id) {
+  await deleteDoc(doc(db, "books", id));
 }
 
-async function saveBook(book, bookIndex) {
+async function saveBook(book) {
+
+  const newBook = {author: book.author, title: book.title, pages: book.pages, read: book.read}
   try {
     await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
-      book,
+      newBook,
       timestamp: serverTimestamp(),
-      bookIndex: `book-${bookIndex}`,
+      id: book.id
     });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
@@ -111,7 +114,7 @@ const table = document.querySelector("table");
 const submitButton = document.querySelector("button.submit");
 
 class Book {
-  constructor(author, title, pages, read) {
+  constructor(author, title, pages, read, id) {
     this.author = author;
 
     this.title = title;
@@ -119,6 +122,8 @@ class Book {
     this.pages = pages;
 
     this.read = read;
+
+    this.id = id;
   }
 }
 
@@ -170,7 +175,7 @@ class Library {
               this.textContent = "true";
             }
             if (isUserSignedIn()) {
-              updateBook(this.myLibrary[i], i);
+              updateBook(this.myLibrary[i].id);
             }
           });
         } else {
@@ -188,8 +193,8 @@ class Library {
 
         tableRow.remove();
 
+        deleteBook(this.myLibrary[i].id)
         this.myLibrary.splice(i, 1);
-        deleteBook(i);
       });
       deleteButton.textContent = "✖";
 
@@ -205,10 +210,11 @@ class Library {
 
   addBookToLibrary = (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead };
+    const bookId = uniqid();
     if (isUserSignedIn()) {
-      saveBook(book, this.bookIndex);
+      saveBook(book, bookId);
     }
-    this.myLibrary.push(new Book(author, title, pages, userHasRead));
+    this.myLibrary.push(new Book(author, title, pages, userHasRead, bookId));
 
     this.bookIndex = this.myLibrary.length - 1;
 
@@ -237,14 +243,24 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
-library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
+library.addBookToLibrary(
+  "Jane Austen",
+  "Pride and Prejudice",
+  432,
+  true,
+);
 library.addBookToLibrary(
   "George R. R. Martin",
   "A Game of Thrones",
   694,
-  false
+  false,
 );
-library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
+library.addBookToLibrary(
+  "F. Scott Fitzgerald",
+  "The Great Gatsby",
+  208,
+  true,
+);
 library.loadBooks();
 library.display();
 initFirebaseAuth();
