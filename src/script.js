@@ -166,27 +166,6 @@ class Library {
 
     this.bookIndex = 0;
   }
-  loadBooks = () => {
-    const recentBooksQuery = query(
-      collection(getFirestore(), "books"),
-      orderBy("timestamp", "desc"),
-      limit(15)
-    );
-
-    // Start listening to the query.
-    onSnapshot(recentBooksQuery, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "removed") {
-          deleteMessage(change.doc.id);
-        } else {
-          var data = change.doc.data();
-          const { book } = data;
-          this.myLibrary.push(book);
-          this.bookIndex = this.myLibrary.length - 1;
-        }
-      });
-    });
-  };
 
   display = () => {
     for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
@@ -244,6 +223,31 @@ class Library {
 
       tbody.appendChild(tableRow);
     }
+  };
+
+  loadBooks = () => {
+    const recentBooksQuery = query(
+      collection(db, "books"),
+      orderBy("timestamp", "desc"),
+      limit(15)
+    );
+
+    // Start listening to the query.
+    onSnapshot(recentBooksQuery, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "removed") {
+          deleteMessage(change.doc.id);
+        } else {
+          var data = change.doc.data();
+          console.log(data)
+          const { book: {author, pages, read,title}} = data;
+          console.log(this)
+          this.myLibrary.push(new Book(author, title, pages, read, change.doc.id));
+          this.bookIndex = this.myLibrary.length - 1;
+          this.display();
+        }
+      });
+    });
   };
 
   addBookToLibrary = async (author, title, pages, userHasRead) => {
