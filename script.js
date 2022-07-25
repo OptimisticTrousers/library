@@ -198,8 +198,8 @@ class Library {
             } else if (this.textContent == "false") {
               this.textContent = "true";
             }
-            if (isUserSignedIn()) {
-              updateBook(this.myLibrary[key].id);
+            if (isUserSignedIn() && key === "id") {
+              updateBook(this.myLibrary[key]);
             }
           });
         } else {
@@ -217,7 +217,7 @@ class Library {
 
         tableRow.remove();
 
-        deleteBook(this.myLibrary[key].id);
+        deleteBook(this.myLibrary[i].id);
         this.myLibrary.splice(i, 1);
       });
       deleteButton.textContent = "✖";
