@@ -54,15 +54,15 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book, bookIndex) {
-  const bookDocRef = doc(db, "books", `book-${bookIndex}`)
+  const bookDocRef = doc(db, "books", `book-${bookIndex}`);
 
   await updateDoc(bookDocRef, {
-    "book.read": !book.hasRead
-  })
+    "book.read": !book.hasRead,
+  });
 }
 
 async function deleteBook(bookIndex) {
-  await deleteDoc((doc(db, "books", `book-${bookIndex}`)))
+  await deleteDoc(doc(db, "books", `book-${bookIndex}`));
 }
 
 async function saveBook(book, bookIndex) {
@@ -71,7 +71,7 @@ async function saveBook(book, bookIndex) {
       name: getUserName(),
       book,
       timestamp: serverTimestamp(),
-      bookIndex: `book-${bookIndex}`
+      bookIndex: `book-${bookIndex}`,
     });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
@@ -95,7 +95,6 @@ function authStateObserver(user) {
 function getUserName() {
   return getAuth().currentUser.displayName;
 }
-
 function isUserSignedIn() {
   return !!getAuth().currentUser;
 }
@@ -148,7 +147,7 @@ class Library {
         }
       });
     });
-  }
+  };
 
   display = () => {
     for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
@@ -170,9 +169,8 @@ class Library {
             } else if (this.textContent == "false") {
               this.textContent = "true";
             }
-            if(isUserSignedIn()){
-
-              updateBook(this.myLibrary[i], i)
+            if (isUserSignedIn()) {
+              updateBook(this.myLibrary[i], i);
             }
           });
         } else {
@@ -191,7 +189,7 @@ class Library {
         tableRow.remove();
 
         this.myLibrary.splice(i, 1);
-        deleteBook(i)
+        deleteBook(i);
       });
       deleteButton.textContent = "✖";
 
@@ -203,10 +201,10 @@ class Library {
 
       tbody.appendChild(tableRow);
     }
-  }
+  };
 
   addBookToLibrary = (author, title, pages, userHasRead) => {
-    const book = { author, title, pages, userHasRead};
+    const book = { author, title, pages, userHasRead };
     if (isUserSignedIn()) {
       saveBook(book, this.bookIndex);
     }
@@ -239,9 +237,14 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
-library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true)
-library.addBookToLibrary("George R. R. Martin", "A Game of Thrones", 694, false)
-library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true)
+library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
+library.addBookToLibrary(
+  "George R. R. Martin",
+  "A Game of Thrones",
+  694,
+  false
+);
+library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
 library.loadBooks();
 library.display();
 initFirebaseAuth();
