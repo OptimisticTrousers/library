@@ -4,6 +4,8 @@ import {
   collection,
   getDocs,
   addDoc,
+  query,
+  onSnapshot,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {
@@ -40,9 +42,34 @@ function initFirebaseAuth() {
   onAuthStateChanged(getAuth(), authStateObserver);
 }
 
+function deleteMessage(id) {
+  var div = document.getElementById("data-key" + id);
+
+  if (div) {
+    div.parentNode.removeChild(div);
+  }
+}
+
+function loadBooks() {
+  const recentBooksQuery = query(
+    collection(getFirestore(), "books"),
+    orderBy("timestamp", "desc"),
+    limit(15)
+  );
+
+  // Start listening to the query.
+  onSnapshot(recentBooksQuery, function (snapshot) {
+    snapshot.docChanges().forEach(function (change) {
+      if (change.type === "removed") {
+        deleteMessage(change.doc.id);
+      }
+    });
+  });
+}
+
 async function saveBook(book) {
   try {
-    await addDoc(collection(getFirestore(), "messages")),
+    await addDoc(collection(getFirestore(), "books")),
       {
         name: getUserName(),
         book,
