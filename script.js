@@ -69,8 +69,9 @@ async function updateBook(book) {
     .collection("books")
     .doc(book.id)
     .update({
-      read: !book.hasRead || !book.read,
+      read: !book?.hasRead || !book?.read,
     });
+  console.log(book.id)
   //await db.collection("books").doc(book.id).update({
   //read: !book.hasRead || !book.read
   //})
@@ -82,6 +83,7 @@ async function updateBook(book) {
 
 async function deleteBook(id) {
   await getFirestore().collection("books").doc(id).delete();
+  console.log(id)
   //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
 }
