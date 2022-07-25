@@ -53,8 +53,12 @@ function deleteMessage(id) {
   }
 }
 
-async function updateBook(book) {
-  const bookDocRef = doc(db, "books", )
+async function updateBook(book, bookIndex) {
+  const bookDocRef = doc(db, "books", `book-${bookIndex}`)
+
+  await updateDoc(bookDocRef, {
+    "book.read": !book.hasRead
+  })
 }
 
 async function saveBook(book, bookIndex) {
@@ -63,7 +67,7 @@ async function saveBook(book, bookIndex) {
       name: getUserName(),
       book,
       timestamp: serverTimestamp(),
-      bookIndex
+      bookIndex: `book-${bookIndex}`
     });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
