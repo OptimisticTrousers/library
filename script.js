@@ -155,8 +155,8 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var data = change.doc.data();
-          const {book, title, author, hasRead} = data
-          addBookToLibrary(book, title, author, hasRead)
+          const {author, title, pages, hasRead} = data
+          addBookToLibrary(author, title, pages, hasRead)
           this.bookIndex = this.myLibrary.length - 1;
         }
       });
