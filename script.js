@@ -44,7 +44,6 @@ function initFirebaseAuth() {
   // Listen to auth state changes.
   onAuthStateChanged(getAuth(), authStateObserver);
 }
-
 function deleteMessage(id) {
   var div = document.getElementById("data-key" + id);
 
