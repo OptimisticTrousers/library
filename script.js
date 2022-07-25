@@ -21,7 +21,6 @@ import {
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyAY8oO7K5Uc92z24oIup2nP66QjeEx-k8c",
   authDomain: "library-42f25.firebaseapp.com",
@@ -67,14 +66,18 @@ async function deleteBook(id) {
 }
 
 async function saveBook(book) {
-
-  const newBook = {author: book.author, title: book.title, pages: book.pages, read: book.read}
+  const newBook = {
+    author: book.author,
+    title: book.title,
+    pages: book.pages,
+    read: book.read,
+  };
   try {
     await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
       newBook,
       timestamp: serverTimestamp(),
-      id: book.id
+      id: book.id,
     });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
@@ -193,7 +196,7 @@ class Library {
 
         tableRow.remove();
 
-        deleteBook(this.myLibrary[i].id)
+        deleteBook(this.myLibrary[i].id);
         this.myLibrary.splice(i, 1);
       });
       deleteButton.textContent = "✖";
@@ -243,24 +246,14 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
-library.addBookToLibrary(
-  "Jane Austen",
-  "Pride and Prejudice",
-  432,
-  true,
-);
+library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
 library.addBookToLibrary(
   "George R. R. Martin",
   "A Game of Thrones",
   694,
-  false,
+  false
 );
-library.addBookToLibrary(
-  "F. Scott Fitzgerald",
-  "The Great Gatsby",
-  208,
-  true,
-);
+library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
 library.loadBooks();
 library.display();
 initFirebaseAuth();
