@@ -219,7 +219,7 @@ class Library {
     if (isUserSignedIn()) {
       saveBook(book, this.bookIndex);
     }
-    this.myLibrary.push(book);
+    this.myLibrary.push(new Book(author, title, pages, userHasRead));
 
     this.bookIndex = this.myLibrary.length - 1;
 
@@ -248,6 +248,9 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
+library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true)
+library.addBookToLibrary("George R. R. Martin", "A Game of Thrones", 694, false)
+library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true)
 library.loadBooks();
 library.display();
 initFirebaseAuth();
