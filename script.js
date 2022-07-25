@@ -75,11 +75,23 @@ async function updateBook(book) {
 
     //const bookRef = doc(db, "books", id)
 
-  await setDoc(doc(db, id), {...book, read: !book.read})
+  //await setDoc(doc(db, id), {...book, read: !book.read})
   //await setDoc(collection(getFirestore(), "books", book.id), {
     //book: {...book, read: !book.read}
   //})
-  console.log(book)
+  db.collection("books").doc("LA").set({
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+})
+.then(() => {
+    console.log("Document successfully written!");
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+
+  //console.log(book)
   //await setDoc(collection(getFirestore(), "books"), {
     //book: {...book, read: !book.read}
   //})
