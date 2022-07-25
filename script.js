@@ -53,12 +53,17 @@ function deleteMessage(id) {
   }
 }
 
-async function saveBook(book) {
+async function updateBook(book) {
+  const bookDocRef = doc(db, "books", )
+}
+
+async function saveBook(book, bookIndex) {
   try {
     await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
       book,
       timestamp: serverTimestamp(),
+      bookIndex
     });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
@@ -134,11 +139,7 @@ const defaultBooks = [
 
 class Library {
   constructor() {
-    this.myLibrary = [
-      new Book("Jane Austen", "Pride and Prejudice", 432, true),
-      new Book("George R. R. Martin", "A Game of Thrones", 694, false),
-      new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true),
-    ];
+    this.myLibrary = [];
 
     this.bookIndex = 0;
   }
@@ -216,7 +217,7 @@ class Library {
   addBookToLibrary = (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead};
     if (isUserSignedIn()) {
-      saveBook(book);
+      saveBook(book, this.bookIndex);
     }
     this.myLibrary.push(book);
 
