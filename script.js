@@ -81,7 +81,7 @@ async function updateBook(book) {
 }
 
 async function deleteBook(id) {
-  await getFirestore().collection("books").doc(book.id).delete();
+  await getFirestore().collection("books").doc(id).delete();
   //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
 }
@@ -197,7 +197,7 @@ class Library {
               this.textContent = "true";
             }
             if (isUserSignedIn()) {
-              updateBook(this.myLibrary[i].id);
+              updateBook(this.myLibrary[key].id);
             }
           });
         } else {
