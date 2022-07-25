@@ -52,7 +52,7 @@ function deleteMessage(id) {
   }
 }
 
-const loadBooks = (this) => {
+const loadBooks = () => {
   const recentBooksQuery = query(
     collection(getFirestore(), "books"),
     orderBy("timestamp", "desc"),
