@@ -67,21 +67,29 @@ function deleteMessage(id) {
 
 async function updateBook(book) {
   //await getFirestore()
-    //.collection("books")
-    //.doc(book.id)
-    //.update({
-      //read: !book?.hasRead || !book?.read,
-    //});
+  //.collection("books")
+  //.doc(book.id)
+  //.update({
+  //read: !book?.hasRead || !book?.read,
+  //});
 
-    //const bookRef = doc(db, "books", id)
+  //const bookRef = doc(db, "books", id)
 
   //await setDoc(doc(db, id), {...book, read: !book.read})
-  await setDoc(collection(getFirestore(), "books"), {
-    book: {...book, read: !book.read}
-  })
-  console.log(book)
+  const newRef = db.collection("books").where("id", "==", id);
+  await setDoc(
+    newRef,
+    {
+      id: id,
+    },
+    { merge: true }
+  );
   //await setDoc(collection(getFirestore(), "books"), {
-    //book: {...book, read: !book.read}
+  //book: {...book, read: !book.read}
+  //})
+  console.log(book);
+  //await setDoc(collection(getFirestore(), "books"), {
+  //book: {...book, read: !book.read}
   //})
   //await db.collection("books").doc(book.id).update({
   //read: !book.hasRead || !book.read
@@ -98,9 +106,8 @@ async function deleteBook(id) {
   //await deleteDoc(doc(db, "books", id))
 
   //const docRef = doc(getFirestore(), 'books', "8UC2sjj7zorZGkl3Kaux ")
-  const colRef = collection(getFirestore(), "books", "8UC2sjj7zorZGkl3Kaux ")
   const newRef = db.collection("books").where("id", "==", id);
-  await deleteDoc(newRef)
+  await deleteDoc(newRef);
   //getDocs
   //const q = query(collection(db, "books"), where())
   ////await deleteDoc(doc(db, id))
@@ -192,7 +199,7 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var data = change.doc.data();
-          const {book} = data
+          const { book } = data;
           this.myLibrary.push(book);
           this.bookIndex = this.myLibrary.length - 1;
         }
