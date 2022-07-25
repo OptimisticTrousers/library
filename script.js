@@ -66,55 +66,18 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  //await getFirestore()
-  //.collection("books")
-  //.doc(book.id)
-  //.update({
-  //read: !book?.hasRead || !book?.read,
-  //});
-
-  //const bookRef = doc(db, "books", id)
-
-  //await setDoc(doc(db, id), {...book, read: !book.read})
-  const newRef = getFirestore().collection("books").where("id", "==", id);
-  await setDoc(
-    newRef,
-    {
-      id: id,
-    },
-    { merge: true }
-  );
-  //await setDoc(collection(getFirestore(), "books"), {
-  //book: {...book, read: !book.read}
-  //})
-  console.log(book);
-  //await setDoc(collection(getFirestore(), "books"), {
-  //book: {...book, read: !book.read}
-  //})
-  //await db.collection("books").doc(book.id).update({
-  //read: !book.hasRead || !book.read
-  //})
-
-  //await updateDoc(bookDocRef, {
-  //"book.read": !book.hasRead,
-  //});
+  await setDoc(collection(getFirestore(), "books").where("id", "==", book.id), {
+    book: {
+      author: book.author,
+      title: book.title,
+      pages: book.pages,
+      read: !book.read
+    }
+  }, {merge: true})
 }
 
 async function deleteBook(id) {
-  //await getFirestore().collection("books").doc(id).delete();
-
-  //await deleteDoc(doc(db, "books", id))
-
-  //const docRef = doc(getFirestore(), 'books', "8UC2sjj7zorZGkl3Kaux ")
-  const newRef = getFirestore().collection("books").where("id", "==", id);
-  await deleteDoc(newRef);
-  //getDocs
-  //const q = query(collection(db, "books"), where())
-  ////await deleteDoc(doc(db, id))
-  //await deleteDoc(collection(getFirestore(), "books"))
-  //console.log(id)
-  //await db.collection("books").doc(id).delete();
-  //await deleteDoc(doc(db, "books", id));
+  await deleteDoc(collection(getFirestore(), "books").where("id", "==", id))
 }
 
 async function saveBook(book) {
