@@ -73,9 +73,10 @@ async function updateBook(book) {
       //read: !book?.hasRead || !book?.read,
     //});
 
-  await setDoc(doc(db, "books", book.id), {
+  await setDoc(collection(getFirestore(), "books", book.id), {
     book: {...book, read: !book.read}
   })
+  console.log(book)
   //await setDoc(collection(getFirestore(), "books"), {
     //book: {...book, read: !book.read}
   //})
@@ -91,7 +92,9 @@ async function updateBook(book) {
 async function deleteBook(id) {
   //await getFirestore().collection("books").doc(id).delete();
 
-  await deleteDoc(doc(db, "books", id))
+  //await deleteDoc(doc(db, "books", id))
+
+  await deleteDoc(collection(getFirestore(), "books", id))
   console.log(id)
   //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
@@ -178,7 +181,8 @@ class Library {
         if (change.type === "removed") {
           deleteMessage(change.doc.id);
         } else {
-          var book = change.doc.data();
+          var data = change.doc.data();
+          const {book} = data
           this.myLibrary.push(book);
           this.bookIndex = this.myLibrary.length - 1;
         }
