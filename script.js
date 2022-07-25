@@ -75,7 +75,7 @@ async function updateBook(book) {
 
     //const bookRef = doc(db, "books", id)
 
-  await setDoc(doc(db, "books", id), {...book, read: !book.read})
+  await setDoc(doc(db, id), {...book, read: !book.read})
   //await setDoc(collection(getFirestore(), "books", book.id), {
     //book: {...book, read: !book.read}
   //})
