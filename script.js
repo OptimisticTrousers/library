@@ -52,28 +52,6 @@ function deleteMessage(id) {
   }
 }
 
-function loadBooks(){
-  const recentBooksQuery = query(
-    collection(getFirestore(), "books"),
-    orderBy("timestamp", "desc"),
-    limit(15)
-  );
-
-  // Start listening to the query.
-  onSnapshot(recentBooksQuery, function (snapshot) {
-    snapshot.docChanges().forEach(function (change) {
-      if (change.type === "removed") {
-        deleteMessage(change.doc.id);
-      } else {
-        var message = change.doc.data();
-        this.myLibrary.push(message);
-        this.bookIndex = this.myLibrary.length - 1;
-        this.display();
-      }
-    });
-  });
-};
-
 async function saveBook(book) {
   try {
     await addDoc(collection(getFirestore(), "books"), {
@@ -91,7 +69,7 @@ function authStateObserver(user) {
     userAccountButton.style.display = "block";
     logInButton.textContent = "Sign Out";
     userAccountButton.textContent = userName;
-    form.classList.add('active')
+    form.classList.add("active");
     logInButton.removeEventListener("click", signIn);
     logInButton.addEventListener("click", signOutUser);
   } else {
@@ -162,6 +140,27 @@ class Library {
     ];
 
     this.bookIndex = 0;
+  }
+  loadBooks() {
+    const recentBooksQuery = query(
+      collection(getFirestore(), "books"),
+      orderBy("timestamp", "desc"),
+      limit(15)
+    );
+
+    // Start listening to the query.
+    onSnapshot(recentBooksQuery, function (snapshot) {
+      snapshot.docChanges().forEach(function (change) {
+        if (change.type === "removed") {
+          deleteMessage(change.doc.id);
+        } else {
+          var message = change.doc.data();
+          this.myLibrary.push(message);
+          this.bookIndex = this.myLibrary.length - 1;
+          this.display();
+        }
+      });
+    });
   }
 
   display() {
