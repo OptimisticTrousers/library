@@ -75,7 +75,6 @@ function authStateObserver(user) {
     userAccountButton.style.display = "block";
     logInButton.textContent = "Sign Out";
     userAccountButton.textContent = userName;
-    form.classList.add("active");
     logInButton.removeEventListener("click", signIn);
     logInButton.addEventListener("click", signOutUser);
   } else {
@@ -115,27 +114,6 @@ class Book {
     this.read = read;
   }
 }
-
-const defaultBooks = [
-  {
-    author: "Jane Austen",
-    title: "Pride and Prejudice",
-    numOfPages: 432,
-    hasRead: true,
-  },
-  {
-    author: "George R. R. Martin",
-    title: "A Game of Thrones",
-    numOfPages: 694,
-    hasRead: false,
-  },
-  {
-    author: "F. Scott Fitzgerald",
-    title: "The Great Gatsby",
-    numOfPages: 208,
-    hasRead: true,
-  },
-];
 
 class Library {
   constructor() {
