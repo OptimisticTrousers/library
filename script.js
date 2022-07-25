@@ -20,7 +20,7 @@ import {
   signOut,
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
-import uniqid from "uniqid";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAY8oO7K5Uc92z24oIup2nP66QjeEx-k8c",
