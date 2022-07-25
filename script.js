@@ -129,7 +129,7 @@ class Library {
 
     this.bookIndex = 0;
   }
-  loadBooks() {
+  loadBooks = () => {
     const recentBooksQuery = query(
       collection(getFirestore(), "books"),
       orderBy("timestamp", "desc"),
@@ -150,7 +150,7 @@ class Library {
     });
   }
 
-  display() {
+  display = () => {
     for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
       const tableRow = document.createElement("tr");
 
