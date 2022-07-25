@@ -52,7 +52,7 @@ function deleteMessage(id) {
   }
 }
 
-function loadBooks() {
+const loadBooks = () => {
   const recentBooksQuery = query(
     collection(getFirestore(), "books"),
     orderBy("timestamp", "desc"),
@@ -72,7 +72,7 @@ function loadBooks() {
       }
     });
   });
-}
+};
 
 async function saveBook(book) {
   try {
@@ -133,13 +133,13 @@ class Book {
 
 class Library {
   constructor() {
-    loadBooks();
     this.myLibrary = [
       new Book("Jane Austen", "Pride and Prejudice", 432, true),
       new Book("George R. R. Martin", "A Game of Thrones", 694, false),
       new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true),
     ];
     this.bookIndex = 0;
+    loadBooks();
   }
 
   display() {
