@@ -156,7 +156,8 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var book = change.doc.data();
-          this.myLibrary.push(book);
+          const {author, title, pages, read} = book;
+          this.myLibrary.push({author, title, pages, read});
           this.bookIndex = this.myLibrary.length - 1;
         }
       });
@@ -170,6 +171,7 @@ class Library {
       tableRow.setAttribute("data-key", i);
 
       for (const key in this.myLibrary[i]) {
+        if(key === "id") break;
         const tableCell = document.createElement("td");
         if (key == "read") {
           const readButton = document.createElement("button");
