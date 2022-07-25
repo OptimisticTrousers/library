@@ -66,23 +66,26 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  await setDoc(collection(getFirestore(), "books").where("id", "==", book.id), {
-    book: {
-      author: book.author,
-      title: book.title,
-      pages: book.pages,
-      read: !book.read
-    }
-  }, {merge: true})
+  await setDoc(
+    collection(getFirestore(), "books", book.id),
+    {
+      book: {
+        author: book.author,
+        title: book.title,
+        pages: book.pages,
+        read: !book.read,
+      },
+    },
+    { merge: true }
+  );
 }
 
 async function deleteBook(id) {
-  const docRef = doc(db, "books")
-  await deleteDoc(collection(getFirestore(), "books").where("id", "==", id))
+  await deleteDoc(collection(getFirestore(), "books", id));
 }
 
 async function saveBook(book) {
-  let newId
+  let newId;
   const newBook = {
     author: book.author,
     title: book.title,
@@ -99,7 +102,7 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
-  return newId
+  return newId;
 }
 function authStateObserver(user) {
   if (user) {
@@ -230,7 +233,7 @@ class Library {
 
   addBookToLibrary = (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead };
-    let id 
+    let id;
     if (isUserSignedIn()) {
       id = saveBook(book);
     }
