@@ -28,7 +28,6 @@ const firebaseConfig = {
 async function signIn() {
   // Sign in Firebase using popup auth and Google as the identity provider
   var provider = new GoogleAuthProvider();
-
   await signInWithPopup(getAuth(), provider);
 }
 
@@ -58,8 +57,8 @@ function loadBooks() {
   );
 
   // Start listening to the query.
-  onSnapshot(recentBooksQuery, function (snapshot) {
-    snapshot.docChanges().forEach(function (change) {
+  onSnapshot(recentBooksQuery, function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
       if (change.type === "removed") {
         deleteMessage(change.doc.id);
       } else {
@@ -75,11 +74,11 @@ function loadBooks() {
 async function saveBook(book) {
   try {
     await addDoc(collection(getFirestore(), "books")),
-      {
-        name: getUserName(),
-        book,
-        timestamp: serverTimestamp(),
-      };
+    {
+      name: getUserName(),
+      book,
+      timestamp: serverTimestamp(),
+    };
   } catch (error) {
     alert.error("Error writing new message to Firebase Database", error);
   }
@@ -156,7 +155,7 @@ class Library {
 
           tableCell.appendChild(readButton);
 
-          readButton.addEventListener("click", function () {
+          readButton.addEventListener("click", function() {
             if (this.textContent == "true") {
               this.textContent = "false";
             } else if (this.textContent == "false") {
