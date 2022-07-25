@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Library</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel ="icon" type="image/x-icon" href="./assets/bookshelf.png" />
+	<script type="module" src="./main.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1 class="title">Library</h1>
+        <div class="account-buttons">
+          <button class="user-account">User</button>
+          <button class="log-in">Log In</button>
+        </div>
+      </nav>
+    </header>
+    <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Title</th>
+          <th>Number of Pages</th>
+          <th>Has Read</th>
+          <th>Delete Book</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="speech-bubble">
+      Welcome to the library! Select your books!
+    </div>
+    <div class="form-container">
+      <button class="add-new-book">Click Me To Add New Book!</button>
+      <form class="active">
+        <fieldset>
+        <div>
+          <label for="author">Author:</label>
+        </div>
+          <input type="text" id="author" placeholder="George R. R. Martin" required pattern="^[A-Za-z -]+$">
+        <div>
+          <label for="title">Title:</label>
+        </div>
+          <input type="text" id="title" placeholder="A Song Of Ice and Fire" required>
+        <div>
+          <label for="pages">Number of Pages:</label>
+        </div>
+          <input type="number" id="pages" placeholder="694" required>
+        </fieldset>
+        <p>Have you read this book?</p>
+        <div>
+          <input type="radio" id="yes" name="has_read" value="true" required>
+          <label for="yes">Yes</label>
+        <div>
+        <div>
+          <input type="radio" id="no" name="has_read" value="false" required>
+          <label for="no">No</label>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="submit" type="submit">Submit</button>
+        <button class="reset" type="reset">Reset</button>
+      </div>
+      </form>
+    </div>
+    </main>
+  <footer>
+    <a href="https://github,com/OptimisticTrousers">
+      <p>Created by Tony Isern</p>
+    </a>
+    <a href="https://www.freepik.com/vectors/book-shop">Book shop vector created by pch.vector - www.freepik.com</a>
+    <a href="https://www.flaticon.com/free-icons/book" title="book icons">Book icons created by Freepik - Flaticon</a>
+  </footer>
+  </body>
+</html>
