@@ -76,12 +76,12 @@ async function saveBook(book) {
     author: book.author,
     title: book.title,
     pages: book.pages,
-    read: book.read,
+    read: book.userHasRead,
   };
   try {
     await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
-      newBook,
+      book: newBook,
       timestamp: serverTimestamp(),
       id: book.id,
     });
