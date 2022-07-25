@@ -4,6 +4,7 @@ import {
   collection,
   getDocs,
   addDoc,
+  deleteDoc,
   orderBy,
   limit,
   updateDoc,
@@ -154,9 +155,8 @@ class Library {
         if (change.type === "removed") {
           deleteMessage(change.doc.id);
         } else {
-          var data = change.doc.data();
-          const {author, title, pages, hasRead} = data
-          addBookToLibrary(author, title, pages, hasRead)
+          var book = change.doc.data();
+          this.myLibrary.push(book);
           this.bookIndex = this.myLibrary.length - 1;
         }
       });
@@ -214,7 +214,7 @@ class Library {
   }
 
   addBookToLibrary = (author, title, pages, userHasRead) => {
-    const book = { title, pages, userHasRead, author };
+    const book = { author, title, pages, userHasRead};
     if (isUserSignedIn()) {
       saveBook(book);
     }
@@ -223,7 +223,7 @@ class Library {
     this.bookIndex = this.myLibrary.length - 1;
 
     library.display();
-  }
+  };
 }
 
 const library = new Library();
@@ -231,18 +231,18 @@ const library = new Library();
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-    const title = form.elements["title"].value;
-    const pages = form.elements["pages"].value;
-    const userHasRead = form.elements["has_read"].value;
-    const author = form.elements["author"].value;
+  const title = form.elements["title"].value;
+  const pages = form.elements["pages"].value;
+  const userHasRead = form.elements["has_read"].value;
+  const author = form.elements["author"].value;
 
-    library.addBookToLibrary(author, title, pages, userHasRead);
+  library.addBookToLibrary(author, title, pages, userHasRead);
 
-    form.reset();
+  form.reset();
 });
 
 addBookButton.addEventListener("click", () => {
-    form.classList.toggle("active");
+  form.classList.toggle("active");
 });
 
 logInButton.addEventListener("click", signIn);
