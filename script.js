@@ -57,8 +57,8 @@ function loadBooks() {
   );
 
   // Start listening to the query.
-  onSnapshot(recentBooksQuery, function(snapshot) {
-    snapshot.docChanges().forEach(function(change) {
+  onSnapshot(recentBooksQuery, function (snapshot) {
+    snapshot.docChanges().forEach(function (change) {
       if (change.type === "removed") {
         deleteMessage(change.doc.id);
       } else {
@@ -74,16 +74,15 @@ function loadBooks() {
 async function saveBook(book) {
   try {
     await addDoc(collection(getFirestore(), "books")),
-    {
-      name: getUserName(),
-      book,
-      timestamp: serverTimestamp(),
-    };
+      {
+        name: getUserName(),
+        book,
+        timestamp: serverTimestamp(),
+      };
   } catch (error) {
-    alert.error("Error writing new message to Firebase Database", error);
+    alert("Error writing new message to Firebase Database", error);
   }
 }
-
 function authStateObserver(user) {
   if (user) {
     var userName = getUserName();
@@ -132,6 +131,7 @@ class Book {
 
 class Library {
   constructor() {
+    loadBooks();
     this.myLibrary = [
       new Book("Jane Austen", "Pride and Prejudice", 432, true),
       new Book("George R. R. Martin", "A Game of Thrones", 694, false),
@@ -155,7 +155,7 @@ class Library {
 
           tableCell.appendChild(readButton);
 
-          readButton.addEventListener("click", function() {
+          readButton.addEventListener("click", function () {
             if (this.textContent == "true") {
               this.textContent = "false";
             } else if (this.textContent == "false") {
