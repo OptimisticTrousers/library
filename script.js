@@ -52,7 +52,7 @@ function deleteMessage(id) {
   }
 }
 
-const loadBooks = () => {
+const loadBooks = (this) => {
   const recentBooksQuery = query(
     collection(getFirestore(), "books"),
     orderBy("timestamp", "desc"),
@@ -131,6 +131,27 @@ class Book {
   }
 }
 
+const defaultBooks = [
+  {
+    author: "Jane Austen",
+    title: "Pride and Prejudice",
+    numOfPages: 432,
+    hasRead: true,
+  },
+  {
+    author: "George R. R. Martin",
+    title: "A Game of Thrones",
+    numOfPages: 694,
+    hasRead: false,
+  },
+  {
+    author: "F. Scott Fitzgerald",
+    title: "The Great Gatsby",
+    numOfPages: 208,
+    hasRead: true,
+  },
+];
+
 class Library {
   constructor() {
     this.myLibrary = [
@@ -138,8 +159,9 @@ class Library {
       new Book("George R. R. Martin", "A Game of Thrones", 694, false),
       new Book("F. Scott Fitzgerald", "The Great Gatsby", 208, true),
     ];
+
     this.bookIndex = 0;
-    loadBooks();
+    loadBooks.call(this);
   }
 
   display() {
@@ -152,7 +174,6 @@ class Library {
         const tableCell = document.createElement("td");
         if (key == "read") {
           const readButton = document.createElement("button");
-
           readButton.textContent = this.myLibrary[i][key];
 
           tableCell.appendChild(readButton);
