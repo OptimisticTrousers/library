@@ -1,38 +1,33 @@
-import { initializeApp } from 'firebase/app';
- import {
-   getAuth,
-   onAuthStateChanged,
-   GoogleAuthProvider,
-   signInWithPopup,
-   signOut,
- } from 'firebase/auth';
- import {
-   getFirestore,
-   collection,
-   addDoc,
-   query,
-   orderBy,
-   limit,
-   onSnapshot,
-   setDoc,
-   updateDoc,
-   deleteDoc,
-   doc,
-   serverTimestamp,
- } from 'firebase/firestore';
- import {
-   getStorage,
-   ref,
-   uploadBytesResumable,
-   getDownloadURL,
- } from 'firebase/storage';
- import {
-   getMessaging,
-   getToken,
-   onMessage
- } from 'firebase/messaging'; 
- import { getPerformance } from 'firebase/performance';
-
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getPerformance } from "firebase/performance";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAY8oO7K5Uc92z24oIup2nP66QjeEx-k8c",
@@ -80,7 +75,7 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  console.log(book)
+  console.log(book);
   await setDoc(
     doc(db, "books", `${book.id}`),
     {
@@ -88,7 +83,7 @@ async function updateBook(book) {
         author: book.author,
         title: book.title,
         pages: book.pages,
-        read: "false",
+        read: book.read,
       },
     },
     { merge: true }
@@ -100,7 +95,7 @@ async function deleteBook(id) {
 }
 
 async function saveBook(book) {
-  let docRef
+  let docRef;
   const newBook = {
     author: book.author,
     title: book.title,
@@ -117,9 +112,9 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
-  console.log("Document Written with ID:", docRef.id)
+  console.log("Document Written with ID:", docRef.id);
 
-  return docRef.id
+  return docRef.id;
 }
 function authStateObserver(user) {
   if (user) {
@@ -209,14 +204,16 @@ class Library {
           tableCell.appendChild(readButton);
 
           readButton.addEventListener("click", () => {
-            if (this.textContent == "true") {
-              this.textContent = "false";
-            } else if (this.textContent == "false") {
-              this.textContent = "true";
+            const currentBook = this.myLibrary.find((book) => book.id === id);
+            if (readButton.textContent == "true") {
+              readButton.textContent = "false";
+              currentBook.read = true;
+            } else if (readButton.textContent == "false") {
+              readButton.textContent = "true";
+              currentBook.read = false;
             }
-            if(isUserSignedIn()){
-
-              updateBook(this.myLibrary.find((book) => book.id === id));
+            if (isUserSignedIn()) {
+              updateBook(currentBook);
             }
           });
         } else {
@@ -285,10 +282,10 @@ logInButton.addEventListener("click", signIn);
 
 //library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
 //library.addBookToLibrary(
-  //"George R. R. Martin",
-  //"A Game of Thrones",
-  //694,
-  //false
+//"George R. R. Martin",
+//"A Game of Thrones",
+//694,
+//false
 //);
 //library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
 library.loadBooks();
