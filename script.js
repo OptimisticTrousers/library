@@ -97,7 +97,7 @@ async function deleteBook(id) {
 
   //await deleteDoc(doc(db, "books", id))
 
-  await deleteDoc(doc(db, "books", id))
+  await deleteDoc(doc(db, id))
   //await deleteDoc(collection(getFirestore(), "books", id))
   console.log(id)
   //await db.collection("books").doc(id).delete();
@@ -112,7 +112,7 @@ async function saveBook(book) {
     read: book.userHasRead,
   };
   try {
-    await addDoc(collection(getFirestore(), "books").doc("BJ"), {
+    await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
       book: newBook,
       timestamp: serverTimestamp(),
