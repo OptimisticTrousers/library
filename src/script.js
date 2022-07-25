@@ -78,8 +78,9 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
+  console.log(book.id)
   await setDoc(
-    collection(db, "books", `${book.id}`),
+    doc(db, "books", `${book.id}`),
     {
       book: {
         author: book.author,
@@ -197,7 +198,9 @@ class Library {
       tableRow.setAttribute("data-key", i);
 
       for (const key in this.myLibrary[i]) {
-        if (key === "id") break;
+        if (key === "id" && isUserSignedIn()) {
+
+        };
         const tableCell = document.createElement("td");
         if (key == "read") {
           const readButton = document.createElement("button");
