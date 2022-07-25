@@ -77,10 +77,12 @@ async function updateBook(book) {
 }
 
 async function deleteBook(id) {
+  const docRef = doc(db, "books")
   await deleteDoc(collection(getFirestore(), "books").where("id", "==", id))
 }
 
 async function saveBook(book) {
+  let newId
   const newBook = {
     author: book.author,
     title: book.title,
@@ -88,15 +90,16 @@ async function saveBook(book) {
     read: book.userHasRead,
   };
   try {
-    await addDoc(collection(getFirestore(), "books"), {
+    newId = await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
       book: newBook,
       timestamp: serverTimestamp(),
-      id: book.id,
     });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
   }
+
+  return newId
 }
 function authStateObserver(user) {
   if (user) {
@@ -227,11 +230,11 @@ class Library {
 
   addBookToLibrary = (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead };
-    const bookId = uniqid();
+    let id 
     if (isUserSignedIn()) {
-      saveBook({ ...book, id: bookId });
+      id = saveBook(book);
     }
-    this.myLibrary.push(new Book(author, title, pages, userHasRead, bookId));
+    this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
 
     this.bookIndex = this.myLibrary.length - 1;
 
