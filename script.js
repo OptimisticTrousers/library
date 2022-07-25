@@ -6,6 +6,7 @@ import {
   addDoc,
   deleteDoc,
   orderBy,
+  setDoc,
   limit,
   updateDoc,
   doc,
@@ -65,13 +66,19 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  await getFirestore()
-    .collection("books")
-    .doc(book.id)
-    .update({
-      read: !book?.hasRead || !book?.read,
-    });
-  console.log(book.id)
+  //await getFirestore()
+    //.collection("books")
+    //.doc(book.id)
+    //.update({
+      //read: !book?.hasRead || !book?.read,
+    //});
+
+  await setDoc(doc(db, "books", book.id), {
+    book: {...book, read: !book.read}
+  })
+  //await setDoc(collection(getFirestore(), "books"), {
+    //book: {...book, read: !book.read}
+  //})
   //await db.collection("books").doc(book.id).update({
   //read: !book.hasRead || !book.read
   //})
@@ -82,7 +89,9 @@ async function updateBook(book) {
 }
 
 async function deleteBook(id) {
-  await getFirestore().collection("books").doc(id).delete();
+  //await getFirestore().collection("books").doc(id).delete();
+
+  await deleteDoc(doc(db, "books", id))
   console.log(id)
   //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
