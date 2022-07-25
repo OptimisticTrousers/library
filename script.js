@@ -67,7 +67,7 @@ function deleteMessage(id) {
 
 async function updateBook(book) {
   await setDoc(
-    collection(getFirestore(), "books", `${book.id}`),
+    collection(db, "books", `${book.id}`),
     {
       book: {
         author: book.author,
@@ -81,7 +81,7 @@ async function updateBook(book) {
 }
 
 async function deleteBook(id) {
-  await deleteDoc(collection(getFirestore(), "books", `${id}`));
+  await deleteDoc(collection(db, "books", `${id}`));
 }
 
 async function saveBook(book) {
@@ -102,6 +102,7 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
+  console.log(docRef)
   return docRef.id;
 }
 function authStateObserver(user) {
