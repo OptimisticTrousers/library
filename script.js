@@ -136,8 +136,8 @@ class Library {
     );
 
     // Start listening to the query.
-    onSnapshot(recentBooksQuery, function (snapshot) {
-      snapshot.docChanges().forEach(function (change) {
+    onSnapshot(recentBooksQuery, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
         if (change.type === "removed") {
           deleteMessage(change.doc.id);
         } else {
