@@ -30,6 +30,10 @@ const firebaseConfig = {
   appId: "1:525662056485:web:1b1304e368ed411ee54fcc",
 };
 
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 function uniqid(prefix = "", random = false) {
     const sec = Date.now() * 1000 + Math.random() * 1000;
     const id = sec.toString(16).replace(/\./g, "").padEnd(14, "0");
@@ -60,15 +64,19 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  const bookDocRef = doc(db, "books", book.id);
+  await db.collection("books").doc(book.id).update({
+    read: !book.hasRead || !book.read
+  })
 
-  await updateDoc(bookDocRef, {
-    "book.read": !book.hasRead,
-  });
+  //await updateDoc(bookDocRef, {
+    //"book.read": !book.hasRead,
+  //});
 }
 
 async function deleteBook(id) {
-  await deleteDoc(doc(db, "books", id));
+
+  await db.collection("books").doc(id).delete();
+  //await deleteDoc(doc(db, "books", id));
 }
 
 async function saveBook(book) {
@@ -110,9 +118,6 @@ function getUserName() {
 function isUserSignedIn() {
   return !!getAuth().currentUser;
 }
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 const userAccountButton = document.querySelector(".user-account");
 const logInButton = document.querySelector(".log-in");
