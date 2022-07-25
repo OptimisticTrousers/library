@@ -91,6 +91,7 @@ function authStateObserver(user) {
     userAccountButton.style.display = "block";
     logInButton.textContent = "Sign Out";
     userAccountButton.textContent = userName;
+    form.classList.add('active')
     logInButton.removeEventListener("click", signIn);
     logInButton.addEventListener("click", signOutUser);
   } else {
