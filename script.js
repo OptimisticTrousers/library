@@ -172,7 +172,7 @@ class Library {
             }
             if(isUserSignedIn()){
 
-              updateBook(this.myLibrary[i], this.bookIndex)
+              updateBook(this.myLibrary[i], i)
             }
           });
         } else {
@@ -191,6 +191,7 @@ class Library {
         tableRow.remove();
 
         this.myLibrary.splice(i, 1);
+        deleteBook(i)
       });
       deleteButton.textContent = "✖";
 
