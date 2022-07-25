@@ -208,7 +208,7 @@ class Library {
 
           tableCell.appendChild(readButton);
 
-          readButton.addEventListener("click", function () {
+          readButton.addEventListener("click", () => {
             if (this.textContent == "true") {
               this.textContent = "false";
             } else if (this.textContent == "false") {
