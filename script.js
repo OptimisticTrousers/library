@@ -62,6 +62,11 @@ function loadBooks() {
     snapshot.docChanges().forEach(function (change) {
       if (change.type === "removed") {
         deleteMessage(change.doc.id);
+      } else {
+        var message = change.doc.data();
+        this.myLibrary.push(change.doc.data());
+        this.bookIndex = this.myLibrary.length - 1;
+        this.display();
       }
     });
   });
@@ -85,6 +90,7 @@ function authStateObserver(user) {
     var userName = getUserName();
     userAccountButton.style.display = "block";
     logInButton.textContent = "Sign Out";
+    userAccountButton.textContent = userName;
     logInButton.removeEventListener("click", signIn);
     logInButton.addEventListener("click", signOutUser);
   } else {
@@ -189,7 +195,7 @@ class Library {
   addBookToLibrary(author, title, pages, userHasRead) {
     const book = { title, pages, userHasRead, author };
     if (isUserSignedIn()) {
-      this.myLibrary.push(newBook);
+      this.myLibrary.push(book);
 
       this.bookIndex = this.myLibrary.length - 1;
 
