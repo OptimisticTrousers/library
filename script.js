@@ -61,6 +61,10 @@ async function updateBook(book, bookIndex) {
   })
 }
 
+async function deleteBook(bookIndex) {
+  await deleteDoc((doc(db, "books", `book-${bookIndex}`)))
+}
+
 async function saveBook(book, bookIndex) {
   try {
     await addDoc(collection(getFirestore(), "books"), {
@@ -165,6 +169,10 @@ class Library {
               this.textContent = "false";
             } else if (this.textContent == "false") {
               this.textContent = "true";
+            }
+            if(isUserSignedIn()){
+
+              updateBook(this.myLibrary[i], this.bookIndex)
             }
           });
         } else {
