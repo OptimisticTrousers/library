@@ -223,7 +223,7 @@ class Library {
     const book = { author, title, pages, userHasRead };
     const bookId = uniqid();
     if (isUserSignedIn()) {
-      saveBook(book, bookId);
+      saveBook({...book, id: bookId});
     }
     this.myLibrary.push(new Book(author, title, pages, userHasRead, bookId));
 
