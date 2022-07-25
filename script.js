@@ -85,7 +85,7 @@ async function deleteBook(id) {
 }
 
 async function saveBook(book) {
-  let newId;
+  let docRef;
   const newBook = {
     author: book.author,
     title: book.title,
@@ -93,7 +93,7 @@ async function saveBook(book) {
     read: book.userHasRead,
   };
   try {
-    newId = await addDoc(collection(getFirestore(), "books"), {
+    docRef = await addDoc(collection(getFirestore(), "books"), {
       name: getUserName(),
       book: newBook,
       timestamp: serverTimestamp(),
@@ -102,7 +102,7 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
-  return newId;
+  return docRef.id;
 }
 function authStateObserver(user) {
   if (user) {
