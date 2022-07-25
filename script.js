@@ -154,8 +154,8 @@ class Library {
         if (change.type === "removed") {
           deleteMessage(change.doc.id);
         } else {
-          var book = change.doc.data();
-          const {book, title, author, hasRead} = book
+          var data = change.doc.data();
+          const {book, title, author, hasRead} = data
           addBookToLibrary(book, title, author, hasRead)
           this.bookIndex = this.myLibrary.length - 1;
         }
@@ -231,7 +231,6 @@ const library = new Library();
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (isUserSignedIn()) {
     const title = form.elements["title"].value;
     const pages = form.elements["pages"].value;
     const userHasRead = form.elements["has_read"].value;
@@ -240,17 +239,10 @@ form.addEventListener("submit", (event) => {
     library.addBookToLibrary(author, title, pages, userHasRead);
 
     form.reset();
-  } else {
-    alert("Please sign in!");
-  }
 });
 
 addBookButton.addEventListener("click", () => {
-  if (isUserSignedIn()) {
     form.classList.toggle("active");
-  } else {
-    alert("Please sign in!");
-  }
 });
 
 logInButton.addEventListener("click", signIn);
