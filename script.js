@@ -30,15 +30,16 @@ const firebaseConfig = {
   appId: "1:525662056485:web:1b1304e368ed411ee54fcc",
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function uniqid(prefix = "", random = false) {
-    const sec = Date.now() * 1000 + Math.random() * 1000;
-    const id = sec.toString(16).replace(/\./g, "").padEnd(14, "0");
-    return `${prefix}${id}${random ? `.${Math.trunc(Math.random() * 100000000)}`:""}`;
-};
+  const sec = Date.now() * 1000 + Math.random() * 1000;
+  const id = sec.toString(16).replace(/\./g, "").padEnd(14, "0");
+  return `${prefix}${id}${
+    random ? `.${Math.trunc(Math.random() * 100000000)}` : ""
+  }`;
+}
 
 async function signIn() {
   // Sign in Firebase using popup auth and Google as the identity provider
@@ -64,18 +65,24 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  await db.collection("books").doc(book.id).update({
-    read: !book.hasRead || !book.read
-  })
+  await getFirestore()
+    .collection("books")
+    .doc(book.id)
+    .update({
+      read: !book.hasRead || !book.read,
+    });
+  //await db.collection("books").doc(book.id).update({
+  //read: !book.hasRead || !book.read
+  //})
 
   //await updateDoc(bookDocRef, {
-    //"book.read": !book.hasRead,
+  //"book.read": !book.hasRead,
   //});
 }
 
 async function deleteBook(id) {
-
-  await db.collection("books").doc(id).delete();
+  await getFirestore().collection("books").doc(book.id).delete();
+  //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
 }
 
@@ -161,8 +168,7 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var book = change.doc.data();
-          const {author, title, pages, read} = book;
-          this.myLibrary.push({author, title, pages, read});
+          this.myLibrary.push(book);
           this.bookIndex = this.myLibrary.length - 1;
         }
       });
@@ -176,7 +182,7 @@ class Library {
       tableRow.setAttribute("data-key", i);
 
       for (const key in this.myLibrary[i]) {
-        if(key === "id") break;
+        if (key === "id") break;
         const tableCell = document.createElement("td");
         if (key == "read") {
           const readButton = document.createElement("button");
@@ -209,7 +215,7 @@ class Library {
 
         tableRow.remove();
 
-        deleteBook(this.myLibrary[i].id);
+        deleteBook(this.myLibrary[key].id);
         this.myLibrary.splice(i, 1);
       });
       deleteButton.textContent = "✖";
@@ -228,7 +234,7 @@ class Library {
     const book = { author, title, pages, userHasRead };
     const bookId = uniqid();
     if (isUserSignedIn()) {
-      saveBook({...book, id: bookId});
+      saveBook({ ...book, id: bookId });
     }
     this.myLibrary.push(new Book(author, title, pages, userHasRead, bookId));
 
