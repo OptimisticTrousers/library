@@ -76,12 +76,11 @@ function loadBooks() {
 
 async function saveBook(book) {
   try {
-    await addDoc(collection(getFirestore(), "books")),
-      {
-        name: getUserName(),
-        book,
-        timestamp: serverTimestamp(),
-      };
+    await addDoc(collection(getFirestore(), "books"), {
+      name: getUserName(),
+      book,
+      timestamp: serverTimestamp(),
+    });
   } catch (error) {
     alert("Error writing new message to Firebase Database", error);
   }
