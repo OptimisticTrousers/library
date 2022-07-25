@@ -73,9 +73,12 @@ async function updateBook(book) {
       //read: !book?.hasRead || !book?.read,
     //});
 
-  await setDoc(collection(getFirestore(), "books", book.id), {
-    book: {...book, read: !book.read}
-  })
+    //const bookRef = doc(db, "books", id)
+
+  await setDoc(doc(db, "books", id), {...book, read: !book.read})
+  //await setDoc(collection(getFirestore(), "books", book.id), {
+    //book: {...book, read: !book.read}
+  //})
   console.log(book)
   //await setDoc(collection(getFirestore(), "books"), {
     //book: {...book, read: !book.read}
@@ -94,7 +97,7 @@ async function deleteBook(id) {
 
   //await deleteDoc(doc(db, "books", id))
 
-  await deleteDoc(collection(getFirestore(), "books").where("id", "==", id))
+  await deleteDoc(doc(db, "books", id))
   //await deleteDoc(collection(getFirestore(), "books", id))
   console.log(id)
   //await db.collection("books").doc(id).delete();
