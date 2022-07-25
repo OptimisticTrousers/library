@@ -94,7 +94,8 @@ async function deleteBook(id) {
 
   //await deleteDoc(doc(db, "books", id))
 
-  await deleteDoc(collection(getFirestore(), "books", id))
+  await deleteDoc(collection("books").where("id", "==", id))
+  //await deleteDoc(collection(getFirestore(), "books", id))
   console.log(id)
   //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
