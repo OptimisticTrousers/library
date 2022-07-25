@@ -65,7 +65,7 @@ function deleteMessage(id) {
   }
 }
 
-async function updateBook(book) {
+function updateBook(book) {
   //await getFirestore()
     //.collection("books")
     //.doc(book.id)
