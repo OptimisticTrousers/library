@@ -93,11 +93,10 @@ async function updateBook(book) {
 }
 
 async function deleteBook(id) {
-  await deleteDoc(collection(db, "books", `${id}`));
+  await deleteDoc(doc(db, "books", `${id}`));
 }
 
 async function saveBook(book) {
-console.log('wor')
   let docRef
   const newBook = {
     author: book.author,
@@ -117,6 +116,7 @@ console.log('wor')
 
   console.log("Document Written with ID:", docRef.id)
 
+  return docRef.id
 }
 function authStateObserver(user) {
   if (user) {
@@ -245,7 +245,7 @@ class Library {
     }
   };
 
-  addBookToLibrary = (author, title, pages, userHasRead) => {
+  addBookToLibrary = async (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead };
     let id;
     if (isUserSignedIn()) {
