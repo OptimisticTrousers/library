@@ -30,6 +30,12 @@ const firebaseConfig = {
   appId: "1:525662056485:web:1b1304e368ed411ee54fcc",
 };
 
+function uniqid(prefix = "", random = false) {
+    const sec = Date.now() * 1000 + Math.random() * 1000;
+    const id = sec.toString(16).replace(/\./g, "").padEnd(14, "0");
+    return `${prefix}${id}${random ? `.${Math.trunc(Math.random() * 100000000)}`:""}`;
+};
+
 async function signIn() {
   // Sign in Firebase using popup auth and Google as the identity provider
   var provider = new GoogleAuthProvider();
