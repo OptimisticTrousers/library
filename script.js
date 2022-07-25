@@ -99,7 +99,8 @@ async function deleteBook(id) {
 
   //const docRef = doc(getFirestore(), 'books', "8UC2sjj7zorZGkl3Kaux ")
   const colRef = collection(getFirestore(), "books", "8UC2sjj7zorZGkl3Kaux ")
-  await deleteDoc(colRef);
+  const newRef = db.collection("books").where("id", "==", id);
+  await deleteDoc(newRef)
   //getDocs
   //const q = query(collection(db, "books"), where())
   ////await deleteDoc(doc(db, id))
