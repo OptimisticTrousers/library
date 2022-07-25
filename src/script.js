@@ -43,6 +43,8 @@ const firebaseConfig = {
   appId: "1:525662056485:web:1b1304e368ed411ee54fcc",
 };
 
+let id;
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -78,7 +80,7 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  console.log(book.id)
+  console.log(book)
   await setDoc(
     doc(db, "books", `${book.id}`),
     {
@@ -86,7 +88,7 @@ async function updateBook(book) {
         author: book.author,
         title: book.title,
         pages: book.pages,
-        read: !book.read,
+        read: "false",
       },
     },
     { merge: true }
@@ -198,9 +200,7 @@ class Library {
       tableRow.setAttribute("data-key", i);
 
       for (const key in this.myLibrary[i]) {
-        if (key === "id" && isUserSignedIn()) {
-
-        };
+        if (key === "id") break;
         const tableCell = document.createElement("td");
         if (key == "read") {
           const readButton = document.createElement("button");
@@ -214,8 +214,9 @@ class Library {
             } else if (this.textContent == "false") {
               this.textContent = "true";
             }
-            if (isUserSignedIn() && key === "id") {
-              updateBook(this.myLibrary[key]);
+            if(isUserSignedIn()){
+
+              updateBook(this.myLibrary.find((book) => book.id === id));
             }
           });
         } else {
@@ -233,7 +234,7 @@ class Library {
 
         tableRow.remove();
 
-        deleteBook(this.myLibrary[i].id);
+        deleteBook(this.myLibrary.find((book) => book.id === id).id);
         this.myLibrary.splice(i, 1);
       });
       deleteButton.textContent = "✖";
@@ -250,7 +251,6 @@ class Library {
 
   addBookToLibrary = async (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead };
-    let id;
     if (isUserSignedIn()) {
       id = await saveBook(book);
     }
@@ -283,14 +283,14 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
-library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
-library.addBookToLibrary(
-  "George R. R. Martin",
-  "A Game of Thrones",
-  694,
-  false
-);
-library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
+//library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
+//library.addBookToLibrary(
+  //"George R. R. Martin",
+  //"A Game of Thrones",
+  //694,
+  //false
+//);
+//library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
 library.loadBooks();
 library.display();
 initFirebaseAuth();
