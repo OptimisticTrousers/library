@@ -16,6 +16,7 @@ import { initializeApp } from 'firebase/app';
    onSnapshot,
    setDoc,
    updateDoc,
+   deleteDoc,
    doc,
    serverTimestamp,
  } from 'firebase/firestore';
@@ -96,7 +97,8 @@ async function deleteBook(id) {
 }
 
 async function saveBook(book) {
-  let docRef;
+console.log('wor')
+  let docRef
   const newBook = {
     author: book.author,
     title: book.title,
@@ -104,7 +106,7 @@ async function saveBook(book) {
     read: book.userHasRead,
   };
   try {
-    docRef = await addDoc(collection(getFirestore(), "books"), {
+    docRef = await addDoc(collection(db, "books"), {
       name: getUserName(),
       book: newBook,
       timestamp: serverTimestamp(),
@@ -113,8 +115,8 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
-  console.log(docRef)
-  return docRef.id;
+  console.log("Document Written with ID:", docRef.id)
+
 }
 function authStateObserver(user) {
   if (user) {
@@ -247,7 +249,7 @@ class Library {
     const book = { author, title, pages, userHasRead };
     let id;
     if (isUserSignedIn()) {
-      id = saveBook(book);
+      id = await saveBook(book);
     }
     this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
 
