@@ -154,10 +154,10 @@ class Library {
         if (change.type === "removed") {
           deleteMessage(change.doc.id);
         } else {
-          var message = change.doc.data();
-          this.myLibrary.push(message);
+          var book = change.doc.data();
+          const {book, title, author, hasRead} = book
+          addBookToLibrary(book, title, author, hasRead)
           this.bookIndex = this.myLibrary.length - 1;
-          this.display();
         }
       });
     });
@@ -213,19 +213,16 @@ class Library {
     }
   }
 
-  addBookToLibrary(author, title, pages, userHasRead) {
+  addBookToLibrary = (author, title, pages, userHasRead) => {
     const book = { title, pages, userHasRead, author };
     if (isUserSignedIn()) {
-      this.myLibrary.push(book);
-
-      this.bookIndex = this.myLibrary.length - 1;
-
       saveBook(book);
-
-      library.display();
-    } else {
-      alert("Please sign in!");
     }
+    this.myLibrary.push(book);
+
+    this.bookIndex = this.myLibrary.length - 1;
+
+    library.display();
   }
 }
 
@@ -258,5 +255,6 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
+library.loadBooks();
 library.display();
 initFirebaseAuth();
