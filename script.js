@@ -237,5 +237,4 @@ addBookButton.addEventListener("click", () => {
 logInButton.addEventListener("click", signIn);
 
 library.display();
-
 initFirebaseAuth();
