@@ -65,7 +65,7 @@ function deleteMessage(id) {
   }
 }
 
-function updateBook(book) {
+async function updateBook(book) {
   //await getFirestore()
     //.collection("books")
     //.doc(book.id)
@@ -76,22 +76,10 @@ function updateBook(book) {
     //const bookRef = doc(db, "books", id)
 
   //await setDoc(doc(db, id), {...book, read: !book.read})
-  //await setDoc(collection(getFirestore(), "books", book.id), {
-    //book: {...book, read: !book.read}
-  //})
-  db.collection("books").doc("LA").set({
-    name: "Los Angeles",
-    state: "CA",
-    country: "USA"
-})
-.then(() => {
-    console.log("Document successfully written!");
-})
-.catch((error) => {
-    console.error("Error writing document: ", error);
-});
-
-  //console.log(book)
+  await setDoc(collection(getFirestore(), "books"), {
+    book: {...book, read: !book.read}
+  })
+  console.log(book)
   //await setDoc(collection(getFirestore(), "books"), {
     //book: {...book, read: !book.read}
   //})
@@ -109,9 +97,14 @@ async function deleteBook(id) {
 
   //await deleteDoc(doc(db, "books", id))
 
-  //await deleteDoc(doc(db, id))
-  await deleteDoc(collection(getFirestore(), "books"))
-  console.log(id)
+  //const docRef = doc(getFirestore(), 'books', "8UC2sjj7zorZGkl3Kaux ")
+  const colRef = collection(getFirestore(), "books", "8UC2sjj7zorZGkl3Kaux ")
+  await deleteDoc(colRef);
+  //getDocs
+  //const q = query(collection(db, "books"), where())
+  ////await deleteDoc(doc(db, id))
+  //await deleteDoc(collection(getFirestore(), "books"))
+  //console.log(id)
   //await db.collection("books").doc(id).delete();
   //await deleteDoc(doc(db, "books", id));
 }
