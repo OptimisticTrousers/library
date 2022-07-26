@@ -40,6 +40,116 @@ const firebaseConfig = {
 
 let id;
 
+class Library {
+  constructor() {
+    this.myLibrary = [];
+
+    this.bookIndex = 0;
+  }
+
+  display = () => {
+    for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
+      const tableRow = document.createElement("tr");
+
+      tableRow.setAttribute("data-key", i);
+
+      for (const key in this.myLibrary[i]) {
+        if (key === "id") break;
+        const tableCell = document.createElement("td");
+        if (key == "read") {
+          const readButton = document.createElement("button");
+          readButton.textContent = this.myLibrary[i][key];
+
+          tableCell.appendChild(readButton);
+
+          readButton.addEventListener("click", () => {
+            const currentBook = this.myLibrary.find((book) => book.id === id);
+            if (readButton.textContent == "true") {
+              readButton.textContent = "false";
+              currentBook.read = true;
+            } else if (readButton.textContent == "false") {
+              readButton.textContent = "true";
+              currentBook.read = false;
+            }
+            if (isUserSignedIn()) {
+              updateBook(currentBook);
+            }
+          });
+        } else {
+          tableCell.textContent = this.myLibrary[i][key];
+        }
+        tableRow.appendChild(tableCell);
+      }
+
+      const deleteButton = document.createElement("button");
+
+      const tableCell = document.createElement("td");
+
+      deleteButton.addEventListener("click", () => {
+        this.bookIndex--;
+
+        tableRow.remove();
+
+        deleteBook(this.myLibrary.find((book) => book.id === id).id);
+        this.myLibrary.splice(i, 1);
+      });
+      deleteButton.textContent = "✖";
+
+      deleteButton.style = "color: red;";
+
+      tableCell.appendChild(deleteButton);
+
+      tableRow.appendChild(tableCell);
+
+      tbody.appendChild(tableRow);
+    }
+  };
+
+  loadBooks = () => {
+    const recentBooksQuery = query(
+      collection(db, "books"),
+      orderBy("timestamp", "desc"),
+      limit(15)
+    );
+
+    // Start listening to the query.
+    onSnapshot(recentBooksQuery, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "removed") {
+          deleteMessage(change.doc.id);
+        } else {
+          var data = change.doc.data();
+          const { book: {author, pages, read,title}} = data;
+          this.myLibrary.push(new Book(author, title, pages, read, change.doc.id));
+          id = change.doc.id
+          this.bookIndex = this.myLibrary.length - 1;
+          this.display();
+          //collection(db, 'collectionName').then(snapshot => console.log(snapshot.size));
+        }
+      });
+
+    });
+  };
+
+  addBookToLibrary = (author, title, pages, userHasRead) => {
+    const book = { author, title, pages, userHasRead };
+    if (isUserSignedIn()) {
+      saveBook(book).then((bookId) => {
+        id = bookId
+      });
+    }
+    else {
+
+      this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
+
+      this.bookIndex = this.myLibrary.length - 1;
+      this.display();
+    }
+
+  };
+}
+
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const library = new Library();
@@ -169,115 +279,6 @@ class Book {
 
     this.id = id;
   }
-}
-
-class Library {
-  constructor() {
-    this.myLibrary = [];
-
-    this.bookIndex = 0;
-  }
-
-  display = () => {
-    for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
-      const tableRow = document.createElement("tr");
-
-      tableRow.setAttribute("data-key", i);
-
-      for (const key in this.myLibrary[i]) {
-        if (key === "id") break;
-        const tableCell = document.createElement("td");
-        if (key == "read") {
-          const readButton = document.createElement("button");
-          readButton.textContent = this.myLibrary[i][key];
-
-          tableCell.appendChild(readButton);
-
-          readButton.addEventListener("click", () => {
-            const currentBook = this.myLibrary.find((book) => book.id === id);
-            if (readButton.textContent == "true") {
-              readButton.textContent = "false";
-              currentBook.read = true;
-            } else if (readButton.textContent == "false") {
-              readButton.textContent = "true";
-              currentBook.read = false;
-            }
-            if (isUserSignedIn()) {
-              updateBook(currentBook);
-            }
-          });
-        } else {
-          tableCell.textContent = this.myLibrary[i][key];
-        }
-        tableRow.appendChild(tableCell);
-      }
-
-      const deleteButton = document.createElement("button");
-
-      const tableCell = document.createElement("td");
-
-      deleteButton.addEventListener("click", () => {
-        this.bookIndex--;
-
-        tableRow.remove();
-
-        deleteBook(this.myLibrary.find((book) => book.id === id).id);
-        this.myLibrary.splice(i, 1);
-      });
-      deleteButton.textContent = "✖";
-
-      deleteButton.style = "color: red;";
-
-      tableCell.appendChild(deleteButton);
-
-      tableRow.appendChild(tableCell);
-
-      tbody.appendChild(tableRow);
-    }
-  };
-
-  loadBooks = () => {
-    const recentBooksQuery = query(
-      collection(db, "books"),
-      orderBy("timestamp", "desc"),
-      limit(15)
-    );
-
-    // Start listening to the query.
-    onSnapshot(recentBooksQuery, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "removed") {
-          deleteMessage(change.doc.id);
-        } else {
-          var data = change.doc.data();
-          const { book: {author, pages, read,title}} = data;
-          this.myLibrary.push(new Book(author, title, pages, read, change.doc.id));
-          id = change.doc.id
-          this.bookIndex = this.myLibrary.length - 1;
-          this.display();
-          //collection(db, 'collectionName').then(snapshot => console.log(snapshot.size));
-        }
-      });
-
-    });
-  };
-
-  addBookToLibrary = (author, title, pages, userHasRead) => {
-    const book = { author, title, pages, userHasRead };
-    if (isUserSignedIn()) {
-      saveBook(book).then((bookId) => {
-        id = bookId
-      });
-    }
-    else {
-
-      this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
-
-      this.bookIndex = this.myLibrary.length - 1;
-      this.display();
-    }
-
-  };
 }
 
 
