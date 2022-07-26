@@ -273,10 +273,36 @@ function authStateObserver(user) {
     userAccountButton.textContent = userName;
     logInButton.removeEventListener("click", signIn);
     logInButton.addEventListener("click", signOutUser);
-    //deleteTableElements();
-    //library.loadBooks();
+    deleteTableElements();
+    library.loadBooks();
+      setTimeout(() => {
+
+            const tBody = document.querySelector('tbody')
+            const lastChild = tBody?.lastChild
+            const secondToLastChild = tBody?.lastChild.previousSibling
+            const clonedNode = document.createElement('button')
+            console.log(lastChild?.isEqualNode(secondToLastChild))
+            if(lastChild?.isEqualNode(secondToLastChild)){
+
+              if(tBody !== lastChild){
+
+                console.log(tBody)
+                console.log(lastChild)
+
+                tBody?.removeChild(lastChild)
+                tBody?.removeChild(lastChild)
+              }
+            }
+            //else {
+              //const table = document.querySelector('table')
+              //const newTBody = document.createElement('tbody')
+              //newTBody.appendChild(clonedNode)
+              //table.appendChild(newTBody)
+
+            //}
+  }, 500)
   } else {
-    //deleteTableElements();
+    deleteTableElements();
     userAccountButton.style.display = "none";
     logInButton.textContent = "Log In";
     logInButton.addEventListener("click", signIn);
