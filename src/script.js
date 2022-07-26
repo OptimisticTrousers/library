@@ -42,6 +42,7 @@ let id;
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const library = new Library();
 
 function uniqid(prefix = "", random = false) {
   const sec = Date.now() * 1000 + Math.random() * 1000;
@@ -116,6 +117,13 @@ async function saveBook(book) {
 
   return docRef.id;
 }
+
+function deleteTableElements(){
+    const tBody = document.querySelector('tbody')
+    while(tBody.firstChild){
+      tBody.removeChild(tBody.lastChild);
+    }
+}
 function authStateObserver(user) {
   if (user) {
     var userName = getUserName();
@@ -124,7 +132,10 @@ function authStateObserver(user) {
     userAccountButton.textContent = userName;
     logInButton.removeEventListener("click", signIn);
     logInButton.addEventListener("click", signOutUser);
+    //deleteTableElements();
+    //library.loadBooks();
   } else {
+    //deleteTableElements();
     userAccountButton.style.display = "none";
     logInButton.textContent = "Log In";
     logInButton.addEventListener("click", signIn);
@@ -269,7 +280,6 @@ class Library {
   };
 }
 
-const library = new Library();
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
