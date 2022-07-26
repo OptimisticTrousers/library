@@ -326,6 +326,8 @@ form.addEventListener("submit", (event) => {
         console.log(lastChild);
 
         tBody?.removeChild(lastChild);
+        tBody?.removeChild(lastChild);
+        tBody?.removeChild(lastChild);
       }
     }
   }, 500);
