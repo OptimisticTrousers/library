@@ -40,22 +40,16 @@ const firebaseConfig = {
 
 let id;
 
-let prevCount = 0;
-
 class Library {
   constructor() {
     this.myLibrary = [];
 
     this.bookIndex = 0;
-
   }
 
   display = () => {
     for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
       const tableRow = document.createElement("tr");
-
-      //tableRow.setAttribute("data-key", i);
-
       for (const key in this.myLibrary[i]) {
         if (key === "id") break;
         const tableCell = document.createElement("td");
@@ -76,30 +70,20 @@ class Library {
             }
             if (isUserSignedIn()) {
               updateBook(currentBook);
-                      setTimeout(() => {
+              setTimeout(() => {
+                const tBody = document.querySelector("tbody");
+                const lastChild = tBody?.lastChild;
+                const secondToLastChild = tBody?.lastChild.previousSibling;
+                const clonedNode = document.createElement("button");
+                console.log(lastChild?.isEqualNode(secondToLastChild));
 
-            const tBody = document.querySelector('tbody')
-            const lastChild = tBody?.lastChild
-            const secondToLastChild = tBody?.lastChild.previousSibling
-            const clonedNode = document.createElement('button')
-            console.log(lastChild?.isEqualNode(secondToLastChild))
+                if (tBody !== lastChild) {
+                  console.log(tBody);
+                  console.log(lastChild);
 
-              if(tBody !== lastChild){
-
-                console.log(tBody)
-                console.log(lastChild)
-
-                tBody?.removeChild(lastChild)
-              }
-            //else {
-              //const table = document.querySelector('table')
-              //const newTBody = document.createElement('tbody')
-              //newTBody.appendChild(clonedNode)
-              //table.appendChild(newTBody)
-
-            //}
-  }, 100)
-              
+                  tBody?.removeChild(lastChild);
+                }
+              }, 100);
             }
           });
         } else {
@@ -129,8 +113,6 @@ class Library {
       tableRow.appendChild(tableCell);
 
       tbody.appendChild(tableRow);
-
-
     }
   };
 
@@ -148,17 +130,17 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var data = change.doc.data();
-          const { book: { author, pages, read, title } } = data;
-          this.myLibrary.push(new Book(author, title, pages, read, change.doc.id));
-          id = change.doc.id
+          const {
+            book: { author, pages, read, title },
+          } = data;
+          this.myLibrary.push(
+            new Book(author, title, pages, read, change.doc.id)
+          );
+          id = change.doc.id;
           this.bookIndex = this.myLibrary.length - 1;
           this.display();
-          //const newCount = snapshot.size;
-          //this.count = newCount
-          //collection(db, 'collectionName').then(snapshot => console.log(snapshot.size));
         }
       });
-
     });
   };
 
@@ -166,20 +148,16 @@ class Library {
     const book = { author, title, pages, userHasRead };
     if (isUserSignedIn()) {
       saveBook(book).then((bookId) => {
-        id = bookId
+        id = bookId;
       });
-    }
-    else {
-
+    } else {
       this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
 
       this.bookIndex = this.myLibrary.length - 1;
       this.display();
     }
-
   };
 }
-
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -188,8 +166,9 @@ const library = new Library();
 function uniqid(prefix = "", random = false) {
   const sec = Date.now() * 1000 + Math.random() * 1000;
   const id = sec.toString(16).replace(/\./g, "").padEnd(14, "0");
-  return `${prefix}${id}${random ? `.${Math.trunc(Math.random() * 100000000)}` : ""
-    }`;
+  return `${prefix}${id}${
+    random ? `.${Math.trunc(Math.random() * 100000000)}` : ""
+  }`;
 }
 
 async function signIn() {
@@ -216,8 +195,6 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-
-  //console.log(book);
   await setDoc(
     doc(db, "books", `${book.id}`),
     {
@@ -254,13 +231,11 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
-  //console.log("Document Written with ID:", docRef.id);
-
   return docRef.id;
 }
 
 function deleteTableElements() {
-  const tBody = document.querySelector('tbody')
+  const tBody = document.querySelector("tbody");
   while (tBody.firstChild) {
     tBody.removeChild(tBody.lastChild);
   }
@@ -275,32 +250,22 @@ function authStateObserver(user) {
     logInButton.addEventListener("click", signOutUser);
     deleteTableElements();
     library.loadBooks();
-      setTimeout(() => {
+    setTimeout(() => {
+      const tBody = document.querySelector("tbody");
+      const lastChild = tBody?.lastChild;
+      const secondToLastChild = tBody?.lastChild.previousSibling;
+      const clonedNode = document.createElement("button");
+      console.log(lastChild?.isEqualNode(secondToLastChild));
+      if (lastChild?.isEqualNode(secondToLastChild)) {
+        if (tBody !== lastChild) {
+          console.log(tBody);
+          console.log(lastChild);
 
-            const tBody = document.querySelector('tbody')
-            const lastChild = tBody?.lastChild
-            const secondToLastChild = tBody?.lastChild.previousSibling
-            const clonedNode = document.createElement('button')
-            console.log(lastChild?.isEqualNode(secondToLastChild))
-            if(lastChild?.isEqualNode(secondToLastChild)){
-
-              if(tBody !== lastChild){
-
-                console.log(tBody)
-                console.log(lastChild)
-
-                tBody?.removeChild(lastChild)
-                tBody?.removeChild(lastChild)
-              }
-            }
-            //else {
-              //const table = document.querySelector('table')
-              //const newTBody = document.createElement('tbody')
-              //newTBody.appendChild(clonedNode)
-              //table.appendChild(newTBody)
-
-            //}
-  }, 500)
+          tBody?.removeChild(lastChild);
+          tBody?.removeChild(lastChild);
+        }
+      }
+    }, 500);
   } else {
     deleteTableElements();
     userAccountButton.style.display = "none";
@@ -338,9 +303,8 @@ class Book {
   }
 }
 
-
 form.addEventListener("submit", (event) => {
-  console.log('click')
+  console.log("click");
   event.preventDefault();
 
   const title = form.elements["title"].value;
@@ -350,37 +314,21 @@ form.addEventListener("submit", (event) => {
 
   library.addBookToLibrary(author, title, pages, userHasRead);
 
-        //console.log("MyLibrary: " + this.myLibrary.length, "Children: "+ tBody.children.length, "Count: " + count, "BookIndex: " + this.bookIndex)
-
   setTimeout(() => {
+    const tBody = document.querySelector("tbody");
+    const lastChild = tBody?.lastChild;
+    const secondToLastChild = tBody?.lastChild.previousSibling;
+    const clonedNode = document.createElement("button");
+    console.log(lastChild?.isEqualNode(secondToLastChild));
+    if (lastChild?.isEqualNode(secondToLastChild)) {
+      if (tBody !== lastChild) {
+        console.log(tBody);
+        console.log(lastChild);
 
-            const tBody = document.querySelector('tbody')
-            const lastChild = tBody?.lastChild
-            const secondToLastChild = tBody?.lastChild.previousSibling
-            const clonedNode = document.createElement('button')
-            console.log(lastChild?.isEqualNode(secondToLastChild))
-            if(lastChild?.isEqualNode(secondToLastChild)){
-
-              if(tBody !== lastChild){
-
-                console.log(tBody)
-                console.log(lastChild)
-
-                tBody?.removeChild(lastChild)
-              }
-            }
-            //else {
-              //const table = document.querySelector('table')
-              //const newTBody = document.createElement('tbody')
-              //newTBody.appendChild(clonedNode)
-              //table.appendChild(newTBody)
-
-            //}
-  }, 500)
-
-          
-
-              //console.log("Prevcount: " + prevCount)
+        tBody?.removeChild(lastChild);
+      }
+    }
+  }, 500);
 
   form.reset();
 });
@@ -391,13 +339,5 @@ addBookButton.addEventListener("click", () => {
 
 logInButton.addEventListener("click", signIn);
 
-//library.addBookToLibrary("Jane Austen", "Pride and Prejudice", 432, true);
-//library.addBookToLibrary(
-//"George R. R. Martin",
-//"A Game of Thrones",
-//694,
-//false
-//);
-//library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
 library.loadBooks();
 initFirebaseAuth();
