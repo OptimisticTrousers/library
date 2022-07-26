@@ -40,18 +40,21 @@ const firebaseConfig = {
 
 let id;
 
+let prevCount = 0;
+
 class Library {
   constructor() {
     this.myLibrary = [];
 
     this.bookIndex = 0;
+
   }
 
   display = () => {
     for (let i = this.bookIndex; i < this.myLibrary.length; i++) {
       const tableRow = document.createElement("tr");
 
-      tableRow.setAttribute("data-key", i);
+      //tableRow.setAttribute("data-key", i);
 
       for (const key in this.myLibrary[i]) {
         if (key === "id") break;
@@ -73,6 +76,30 @@ class Library {
             }
             if (isUserSignedIn()) {
               updateBook(currentBook);
+                      setTimeout(() => {
+
+            const tBody = document.querySelector('tbody')
+            const lastChild = tBody?.lastChild
+            const secondToLastChild = tBody?.lastChild.previousSibling
+            const clonedNode = document.createElement('button')
+            console.log(lastChild?.isEqualNode(secondToLastChild))
+
+              if(tBody !== lastChild){
+
+                console.log(tBody)
+                console.log(lastChild)
+
+                tBody?.removeChild(lastChild)
+              }
+            //else {
+              //const table = document.querySelector('table')
+              //const newTBody = document.createElement('tbody')
+              //newTBody.appendChild(clonedNode)
+              //table.appendChild(newTBody)
+
+            //}
+  }, 100)
+              
             }
           });
         } else {
@@ -101,8 +128,9 @@ class Library {
 
       tableRow.appendChild(tableCell);
 
-      console.log(this.myLibrary.length, this.bookIndex)
       tbody.appendChild(tableRow);
+
+
     }
   };
 
@@ -120,11 +148,13 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var data = change.doc.data();
-          const { book: {author, pages, read,title}} = data;
+          const { book: { author, pages, read, title } } = data;
           this.myLibrary.push(new Book(author, title, pages, read, change.doc.id));
           id = change.doc.id
           this.bookIndex = this.myLibrary.length - 1;
           this.display();
+          //const newCount = snapshot.size;
+          //this.count = newCount
           //collection(db, 'collectionName').then(snapshot => console.log(snapshot.size));
         }
       });
@@ -158,9 +188,8 @@ const library = new Library();
 function uniqid(prefix = "", random = false) {
   const sec = Date.now() * 1000 + Math.random() * 1000;
   const id = sec.toString(16).replace(/\./g, "").padEnd(14, "0");
-  return `${prefix}${id}${
-    random ? `.${Math.trunc(Math.random() * 100000000)}` : ""
-  }`;
+  return `${prefix}${id}${random ? `.${Math.trunc(Math.random() * 100000000)}` : ""
+    }`;
 }
 
 async function signIn() {
@@ -187,7 +216,8 @@ function deleteMessage(id) {
 }
 
 async function updateBook(book) {
-  console.log(book);
+
+  //console.log(book);
   await setDoc(
     doc(db, "books", `${book.id}`),
     {
@@ -224,16 +254,16 @@ async function saveBook(book) {
     alert("Error writing new message to Firebase Database", error);
   }
 
-  console.log("Document Written with ID:", docRef.id);
+  //console.log("Document Written with ID:", docRef.id);
 
   return docRef.id;
 }
 
-function deleteTableElements(){
-    const tBody = document.querySelector('tbody')
-    while(tBody.firstChild){
-      tBody.removeChild(tBody.lastChild);
-    }
+function deleteTableElements() {
+  const tBody = document.querySelector('tbody')
+  while (tBody.firstChild) {
+    tBody.removeChild(tBody.lastChild);
+  }
 }
 function authStateObserver(user) {
   if (user) {
@@ -284,6 +314,7 @@ class Book {
 
 
 form.addEventListener("submit", (event) => {
+  console.log('click')
   event.preventDefault();
 
   const title = form.elements["title"].value;
@@ -292,6 +323,38 @@ form.addEventListener("submit", (event) => {
   const author = form.elements["author"].value;
 
   library.addBookToLibrary(author, title, pages, userHasRead);
+
+        //console.log("MyLibrary: " + this.myLibrary.length, "Children: "+ tBody.children.length, "Count: " + count, "BookIndex: " + this.bookIndex)
+
+  setTimeout(() => {
+
+            const tBody = document.querySelector('tbody')
+            const lastChild = tBody?.lastChild
+            const secondToLastChild = tBody?.lastChild.previousSibling
+            const clonedNode = document.createElement('button')
+            console.log(lastChild?.isEqualNode(secondToLastChild))
+            if(lastChild?.isEqualNode(secondToLastChild)){
+
+              if(tBody !== lastChild){
+
+                console.log(tBody)
+                console.log(lastChild)
+
+                tBody?.removeChild(lastChild)
+              }
+            }
+            //else {
+              //const table = document.querySelector('table')
+              //const newTBody = document.createElement('tbody')
+              //newTBody.appendChild(clonedNode)
+              //table.appendChild(newTBody)
+
+            //}
+  }, 500)
+
+          
+
+              //console.log("Prevcount: " + prevCount)
 
   form.reset();
 });
