@@ -263,6 +263,7 @@ function authStateObserver(user) {
 
           tBody?.removeChild(lastChild);
           tBody?.removeChild(lastChild);
+          tBody?.removeChild(lastChild);
         }
       }
     }, 500);
