@@ -239,27 +239,33 @@ class Library {
           deleteMessage(change.doc.id);
         } else {
           var data = change.doc.data();
-          console.log(data)
           const { book: {author, pages, read,title}} = data;
-          console.log(this)
           this.myLibrary.push(new Book(author, title, pages, read, change.doc.id));
+          id = change.doc.id
           this.bookIndex = this.myLibrary.length - 1;
           this.display();
+          //collection(db, 'collectionName').then(snapshot => console.log(snapshot.size));
         }
       });
+
     });
   };
 
-  addBookToLibrary = async (author, title, pages, userHasRead) => {
+  addBookToLibrary = (author, title, pages, userHasRead) => {
     const book = { author, title, pages, userHasRead };
     if (isUserSignedIn()) {
-      id = await saveBook(book);
+      saveBook(book).then((bookId) => {
+        id = bookId
+      });
     }
-    this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
+    else {
 
-    this.bookIndex = this.myLibrary.length - 1;
+      this.myLibrary.push(new Book(author, title, pages, userHasRead, id));
 
-    library.display();
+      this.bookIndex = this.myLibrary.length - 1;
+      this.display();
+    }
+
   };
 }
 
@@ -293,5 +299,4 @@ logInButton.addEventListener("click", signIn);
 //);
 //library.addBookToLibrary("F. Scott Fitzgerald", "The Great Gatsby", 208, true);
 library.loadBooks();
-library.display();
 initFirebaseAuth();
