@@ -101,6 +101,7 @@ class Library {
 
       tableRow.appendChild(tableCell);
 
+      console.log(this.myLibrary.length, this.bookIndex)
       tbody.appendChild(tableRow);
     }
   };
